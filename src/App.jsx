@@ -27,6 +27,7 @@ import {
 } from 'react-router-dom'
 import { Providers } from './pages/admin/Providers'
 import { Shoppings } from './pages/admin/Shoppings'
+import CreateProdiver from './pages/admin/providerr/CreateProvider'
 
 
 function App() {
@@ -128,6 +129,10 @@ function App() {
                 {
                   path: '/admin/provider',
                   element: <Navigate to='/admin'/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateProdiver/>
                 },
                 {
                   path: 'edit/:id',
