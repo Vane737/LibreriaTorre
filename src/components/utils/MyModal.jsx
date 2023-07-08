@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 
 
+// eslint-disable-next-line react/prop-types
 export const MyModal = ({estados, Text}) => {
   const onClickAccept = (IsOpen,IsAccept)=>{
     estados({

@@ -1,77 +1,80 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useListDatas } from "../../hook";
+import { ListUserRows } from "../../components/row";
+import { MyModal } from "../../components/utils";
+import axios from "axios";
+
+
 
 export const Providers = () => {
-  const navigate = useNavigate();
-  // const { listData, loading } = useListDatas("/venta");
-  // const head = [
-  //   "id",
-  //   "fecha",
-  //   "hora",
-  //   "total",
-  //   "tipo pago",
-  //   "cliente",
-  //   "vendedor",
+
+  // const datos = [
+  //   { id: 1, nombre: "Juan Perez Ledezma", email: "juan@gmail.com", direccion: "Villa primero de mayo", telefono: "65465498712" },
+  //   { id: 2, nombre: "Pedro  Lada", email: "pedro@gmail.com", direccion: "San martin", telefono: "3324558696" },
+  //   { id: 3, nombre: "Alexander Vazques", email: "Alex@gmail.com", direccion: "Pampa de la isla", telefono: "3324558696" },
+  //   { id: 4, nombre: "Ludez Manzano", email: "Lurdez@gmail.com", direccion: "Urubo norte", telefono: "3324558696" }
   // ];
 
-  // const handleClickOption = ({ id, option }) => {
-  //   switch (option) {
-  //     case "borrar":
-  //       return "Hola mundo";
-  //     case "vista":
-  //       return navigate(`/admin/user/read/${id}`);
-  //     case "editar":
-  //       return navigate(`/admin/user/edit/${id}`);
-  //     default:
-  //       break;
-  //   }
-  // };
 
-  const handleClickCreate = () => {
-    navigate("/admin/sale/create");
+  const navigate = useNavigate();
+  const { listData, loading } = useListDatas('/proveedor');
+  const [isOpen, setIsOpen] = useState(false);
+  const [isAccept, setIsAccept] = useState(false);
+  const [providerId, setUserId] = useState(null);
+  const head = ['id', 'nombre', 'correo', 'telefono', 'dirección'];
+
+
+  const handleClickOption = ({ id, option }) => {
+    switch (option) {
+      case 'borrar':
+        return handleDeleteProvider(id);
+      case 'vista':
+        return navigate(`/admin/user/read/${id}`);
+      case 'editar':
+        return navigate(`/admin/user/edit/${id}`);
+      default:
+        break;
+    }
   };
+
+  const textBorrar = 'Estás seguro de eliminar el Proveedor?';
+  
+  const handleDeleteProvider = (id) => {
+    setUserId(id);
+    setIsOpen(true);
+  };
+
+  const closeModal = ({ open, accept }) => {
+    setIsOpen(open);
+
+    if (accept) {
+      setIsAccept(true);
+    } else {
+      setIsAccept(false);
+      setUserId(null);
+    }
+  };
+
+  useEffect(() => {
+    const deleteProvider = async () => {
+      if (isAccept && providerId) {
+        const { data, status } = await axios.delete(`/provider/${providerId}`);
+        if (status >= 400) return;
+        console.log(data);
+        window.location.reload();
+      }
+    };
+
+    deleteProvider();
+  }, [isAccept, providerId]);
 
   return (
     <div className="w-full p-5">
       <div className="mt-5 p-5 w-full h-screen">
-        <div className="flex justify-end pr-4">
-          <button
-            className="bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white"
-            onClick={handleClickCreate}
-          >
-            Crear Nota de Venta
-          </button>
-        </div>
-
-        <div className="pt-5">
-          <div>
-            <table className="table-fixed w-full">
-              <thead className="bg-custom-celeste w-full">
-                <tr className="">
-                  <th>Libro</th>
-                  <th>Id</th>
-                  <th>Cantidad</th>
-                  <th>Precio</th>
-                  <th>Precio Total</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="bg-custom-grey">
-                  <th className="pb-2 pt-2">asdsafa</th>
-                  <th>asdfafa</th>
-                  <th>gadsgfas</th>
-                  <th>fgasagasa</th>
-                  <th>safafasf</th>
-                  <th className="p-2">
-                    <button className="bg-custom-red rounded-md p-2">
-                      Eliminar
-                    </button>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <h1>Users</h1>
+        <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption}/>
+        {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
     </div>
   );

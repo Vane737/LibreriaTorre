@@ -26,7 +26,7 @@ export const ListUsers = () => {
     }
   };
 
-  const textBorrar = 'Estás seguro de eliminar el Usuario?';
+  const textBorrar = 'Estás seguro de eliminar el proveedor?';
 
   const handleDeleteUser = (id) => {
     setUserId(id);
@@ -72,3 +72,8 @@ export const ListUsers = () => {
     </div>
   );
 };
+
+
+
+
+
