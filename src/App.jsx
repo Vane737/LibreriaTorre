@@ -27,7 +27,7 @@ import {
 } from 'react-router-dom'
 import { Providers } from './pages/admin/Providers'
 import { Shoppings } from './pages/admin/Shoppings'
-import CreateProdiver from './pages/admin/providerr/CreateProvider'
+import CreateEditProdiver from './pages/admin/providerr/CreateEditProvider'
 
 
 function App() {
@@ -132,11 +132,11 @@ function App() {
                 },
                 {
                   path: 'create',
-                  element: <CreateProdiver/>
+                  element: <CreateEditProdiver/>
                 },
                 {
                   path: 'edit/:id',
-                  element: <EditBook/>
+                  element: <CreateEditProdiver/>
                 },
                 {
                   path: 'read/:id',
