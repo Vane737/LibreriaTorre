@@ -10,14 +10,14 @@ export const Shoppings = () => {
   const { listData, loading } = useListDatas('/compras');
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
-  const [providerId, setUserId] = useState(null);
+  const [shoppingId, setShoppingId] = useState(null);
   const head = ['id', 'proveedor', 'comprador', 'fecha', 'hora','total', 'opciones'];
 
 
   const handleClickOption = ({ id, option }) => {
     switch (option) {
       case 'borrar':
-        return handleDeleteProvider(id);
+        return handleDeleteShopping(id);
       case 'vista':
         return navigate(`/admin/shopping/read/${id}`);
       case 'editar':
@@ -29,8 +29,8 @@ export const Shoppings = () => {
 
   const textBorrar = 'Estás seguro de eliminar la Compra?';
   
-  const handleDeleteProvider = (id) => {
-    setUserId(id);
+  const handleDeleteShopping = (id) => {
+    setShoppingId(id);
     setIsOpen(true);
   };
 
@@ -41,14 +41,14 @@ export const Shoppings = () => {
       setIsAccept(true);
     } else {
       setIsAccept(false);
-      setUserId(null);
+      setShoppingId(null);
     }
   };
 
   useEffect(() => {
     const deleteShopping = async () => {
-      if (isAccept && providerId) {
-        const { data, status } = await axios.delete(`/proveedor/${providerId}`);
+      if (isAccept && shoppingId) {
+        const { data, status } = await axios.delete(`/compra/${shoppingId}`);
         if (status >= 400) return;
         console.log(data);
         window.location.reload();
@@ -56,7 +56,7 @@ export const Shoppings = () => {
     };
 
     deleteShopping();
-  }, [isAccept, providerId]);
+  }, [isAccept, shoppingId]);
 
 
   const handleClickCreate = ()=>{

@@ -28,6 +28,7 @@ import {
 import { Providers } from './pages/admin/Providers'
 import { Shoppings } from './pages/admin/Shoppings'
 import CreateProdiver from './pages/admin/providerr/CreateProvider'
+import { ReadProdiver } from './pages/admin/providerr/ReadProvider'
 
 
 function App() {
@@ -140,11 +141,7 @@ function App() {
                 },
                 {
                   path: 'read/:id',
-                  element: <ReadBook/>
-                },
-                {
-                  path: 'create',
-                  element: <ReadBook/>
+                  element: <ReadProdiver/>
                 }
               ]
             },

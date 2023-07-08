@@ -3,7 +3,7 @@ import { MyModal } from '../../components/utils';
 import { useListDatas } from '../../hook';
 import { ListUserRows } from '../../components/row';
 import { useState, useEffect } from 'react';
-import axios from '../../API/axios';
+import api from '../../API/axios';
 
 export const ListUsers = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ export const ListUsers = () => {
   useEffect(() => {
     const deleteUser = async () => {
       if (isAccept && userId) {
-        const { data, status } = await axios.delete(`/usuario/${userId}`);
+        const { data, status } = await api.delete(`/usuario/${userId}`);
         if (status >= 400) return;
         console.log(data);
         window.location.reload();
@@ -65,7 +65,7 @@ export const ListUsers = () => {
         {loading ? (
           <p>Cargando</p>
         ) : (
-          <ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} />
+          <ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} setEdit={true}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
