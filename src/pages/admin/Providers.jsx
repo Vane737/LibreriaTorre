@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useListDatas } from "../../hook";
 import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
-import axios from "axios";
-
+import api from "../../API/axios";
 
 
 export const Providers = () => {
@@ -13,8 +12,8 @@ export const Providers = () => {
   const { listData, loading } = useListDatas('/proveedor');
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
-  const [providerId, setUserId] = useState(null);
-  const head = ['id', 'nombre', 'correo', 'telefono', 'dirección'];
+  const [providerId, setProviderId] = useState(null);
+  const head = ['Id', 'Nombre', 'Correo', 'Telefono', 'Dirección'];
 
 
   const handleClickOption = ({ id, option }) => {
@@ -22,7 +21,7 @@ export const Providers = () => {
       case 'borrar':
         return handleDeleteProvider(id);
       case 'vista':
-        return navigate(`/admin/´provider/read/${id}`);
+        return navigate(`/admin/provider/read/${id}`);
       case 'editar':
         return navigate(`/admin/provider/edit/${id}`);
       default:
@@ -33,7 +32,7 @@ export const Providers = () => {
   const textBorrar = 'Estás seguro de eliminar el Proveedor?';
   
   const handleDeleteProvider = (id) => {
-    setUserId(id);
+    setProviderId(id);
     setIsOpen(true);
   };
 
@@ -44,14 +43,14 @@ export const Providers = () => {
       setIsAccept(true);
     } else {
       setIsAccept(false);
-      setUserId(null);
+      setProviderId(null);
     }
   };
 
   useEffect(() => {
     const deleteProvider = async () => {
       if (isAccept && providerId) {
-        const { data, status } = await axios.delete(`/proveedor//${providerId}`);
+        const { data, status } = await api.delete(`/proveedor/${providerId}`);
         if (status >= 400) return;
         console.log(data);
         window.location.reload();
@@ -76,7 +75,7 @@ export const Providers = () => {
         {loading ? (
           <p>Cargando....</p>
         ) : (
-        <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption}/>
+        <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption} setEdit={true}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
