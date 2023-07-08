@@ -2,22 +2,31 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import api from "../../../API/axios";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 export default function CreateEditProdiver() {
-  let {id} = useParams();
+  let { id } = useParams();
   const navigate = useNavigate();
 
   //form
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    reset
   } = useForm();
   
-  
+  //handlers
   const handleProviderSubmit = (data) => {
     if(id){
       //editar
-      console.log(id)
+      api.put(`proveedor/${id}`, data)
+      .then((res) => {
+        console.log(res);
+        navigate("/admin/providers");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }else{
       //crear
       api.post("proveedor", data).
@@ -31,10 +40,29 @@ export default function CreateEditProdiver() {
     }
   }
 
+  useEffect(() =>{
+    if (id) {
+      api.get(`/proveedor/${id}`)
+      .then((res) => {
+        console.log(res);
+        reset({
+          nombre: res.data.proveedor.nombre,
+          correo: res.data.proveedor.correo,
+          direccion: res.data.proveedor.direccion,
+          telefono: res.data.proveedor.telefono
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },[id, reset]);
+
+  //render
   return (
     <div className="container mx-auto w-3/6">
       <h1 className="text-2xl font-bold text-center mb-4 w-full pt-5">
-        REGISTRAR PROVEEDOR
+        {id ? "EDITAR PROVEEDOR" : "REGISTRAR PROVEEDOR"}
       </h1>
       <form onSubmit={handleSubmit(handleProviderSubmit)}>
         <div className="mb-4">
@@ -82,7 +110,7 @@ export default function CreateEditProdiver() {
             type="submit"
             className="bg-custom-green rounded-md p-2 block w-full mb-4"
           >
-            Registrar
+            {id ? "Editar" : "Registrar"}
           </button>
 
           <Link
