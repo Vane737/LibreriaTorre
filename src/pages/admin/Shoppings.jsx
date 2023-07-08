@@ -69,7 +69,7 @@ export const Shoppings = () => {
           <h1 className="text-2xl font-bold">Compras</h1>
           <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
           onClick={handleClickCreate}>Añadir Nueva Compra</button>
-        </div>
+      </div>
         {loading ? (
           <p>Cargando...</p>
         ) : (

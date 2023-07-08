@@ -13,7 +13,6 @@ export const ReadProdiver = () => {
             const response = await api.get(`/proveedor/${id}`);
             console.log(response);
             setProveedor(response.data.proveedor);
-            console.log(proveedor);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -32,15 +31,15 @@ export const ReadProdiver = () => {
     }
     
     return (
-            <div className="w-full p-5">
-                <div className="mt-5 p-5 w-full h-screen">
-                        <h1 className="text-2xl font-bold py-6">Proveedor</h1>
-                        <p className="py-3"><strong>Id:</strong> {proveedor.id}</p>
-                        <p className="py-3"><strong>Nombre:</strong> {proveedor.nombre}</p>
-                        <p className="py-3"><strong>Email:</strong> {proveedor.correo}</p>
-                        <p className="py-3"><strong>Teléfono:</strong> {proveedor.telefono}</p>
-                        <p className="py-3"><strong>Dirección:</strong> {proveedor.direccion}</p>
-                </div>
+        <div className="w-full p-5">
+            <div className="mt-5 p-5 w-full h-screen">
+                    <h1 className="text-2xl font-bold py-6">Proveedor</h1>
+                    <p className="py-3"><strong>Id:</strong> {proveedor.id}</p>
+                    <p className="py-3"><strong>Nombre:</strong> {proveedor.nombre}</p>
+                    <p className="py-3"><strong>Email:</strong> {proveedor.correo}</p>
+                    <p className="py-3"><strong>Teléfono:</strong> {proveedor.telefono}</p>
+                    <p className="py-3"><strong>Dirección:</strong> {proveedor.direccion}</p>
             </div>
+        </div>
     );
 };

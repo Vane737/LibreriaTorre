@@ -60,7 +60,7 @@ export const ListUsers = () => {
   return (
     <div className="w-full p-5">
       <div className="mt-5 p-5 w-full h-screen">
-        <h1>Users</h1>
+      <h1 className="text-2xl font-bold">Usuarios</h1>
         <hr />
         {loading ? (
           <p>Cargando</p>

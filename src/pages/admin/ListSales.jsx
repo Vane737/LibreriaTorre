@@ -28,7 +28,8 @@ export const ListSales = () => {
   return (
     <div className="w-full p-5">
       <div className="mt-5 p-5 w-full h-screen">
-        <div className='flex justify-end pr-4'>
+        <div className='flex justify-between pr-4'>
+          <h1 className="text-2xl font-bold">Ventas</h1>
           <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
           onClick={handleClickCreate}>Crear Nota de Venta</button>
         </div>
