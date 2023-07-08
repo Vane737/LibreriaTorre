@@ -136,6 +136,10 @@ function App() {
                 {
                   path: 'read/:id',
                   element: <ReadBook/>
+                },
+                {
+                  path: 'create',
+                  element: <ReadBook/>
                 }
               ]
             },
