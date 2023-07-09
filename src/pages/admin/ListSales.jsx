@@ -37,7 +37,7 @@ export const ListSales = () => {
           <p>Cargando</p>
         ) : (
           <div className='pt-5'>
-            <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} />
+            <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} setEdit={false} />
           </div>
         )}
        

@@ -1,33 +1,42 @@
 import { useState} from "react"
-import axios from '../../API/axios'
-import {debounce} from 'lodash'
+// import axios from '../../API/axios'
+// import {debounce} from 'lodash'
 
 export const FormDynamicVenta = () => {
   const [titulo, setTitulo] = useState('');
+  const [datosList, setDatosList] = useState([
+    { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
+    { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
+    { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
+    { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
+  ]);
   const [date, setDate] = useState({
-    id: '',
+    id: '1',
+    titulo:'',
     cantidad: 0,
     precio: 0.00,
     descuento: 0
   });
+
   const handleClickAdd = ()=>{
-    console.log('click');
+    setDatosList(...datosList, date);
   }
   //para el libro
-  const getLibro = async()=>{
-    try {
-      const {data,status} = await axios.get('/libro/mostrar',titulo)
-      console.log(data, status);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // const getLibro = async()=>{
+  //   try {
+  //     const {data,status} = await axios.get('/libro/mostrar',titulo)
+  //     console.log(data, status);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   const handleChangeText= ({target})=>{
     setTitulo(target.value);
-    debouncedFetchData();
+    // debouncedFetchData();
   }
 
-  const debouncedFetchData = debounce(getLibro, 3000);
+  // const debouncedFetchData = debounce(getLibro, 3000);
 
   
   const handleChangeNumber= ({target})=>{
@@ -37,6 +46,20 @@ export const FormDynamicVenta = () => {
       [name]: value
     });
   }
+
+
+  // const detalleVenta = [
+  //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
+  //   { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
+  //   { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
+  //   { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
+  // ];
+
+const handleRemoveDetalle = (id) => {
+  const newDataList = datosList.filter((detalle) => detalle.id !== id);
+  setDatosList(newDataList);
+};
+
   return (
     <div>
       <table className="table-fixed w-full">
@@ -85,16 +108,22 @@ export const FormDynamicVenta = () => {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-custom-grey">
-            <th className="pb-2 pt-2">asdsafa</th>
-            <th>asdfafa</th>
-            <th>gadsgfas</th>
-            <th>fgasagasa</th>
-            <th>safafasf</th>
-            <th className="p-2">
-              <button className="bg-custom-red rounded-md p-2">Eliminar</button>
-            </th>
-          </tr>
+          {
+            datosList.map((detalle, i) => {
+              return (
+                <tr key={i} className="bg-custom-grey">
+                  <th>{detalle.titulo}</th>
+                  <th>{detalle.id}</th>
+                  <th>{detalle.cantidad}</th>
+                  <th>{detalle.precio}</th>
+                  <th>0</th>
+                  <th className="p-2">
+                    <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle( detalle.id )}>Eliminar</button>
+                  </th>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     </div>

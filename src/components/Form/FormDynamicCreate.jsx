@@ -2,6 +2,7 @@ import {useState} from 'react'
 import PropTypes from 'prop-types'
 
 
+// eslint-disable-next-line react/prop-types
 export const FormDynamicCreate = ({fields = [], initialValues = {} , button = '', getValues}) => {
 
   const [formValues, setFormValues] = useState(initialValues);
