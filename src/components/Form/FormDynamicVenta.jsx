@@ -66,12 +66,12 @@ export const FormDynamicVenta = () => {
   };
 
 
-  const detalleVenta = [
-    { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
-    { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
-    { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
-    { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
-  ];
+  // const detalleVenta = [
+  //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
+  //   { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
+  //   { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
+  //   { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
+  // ];
 
 const handleRemoveDetalle = (id) => {
   const newDataList = datosList.filter((detalle) => detalle.id !== id);
@@ -150,7 +150,7 @@ const handleRemoveDetalle = (id) => {
           </tr>
         </thead>
         <tbody>
-          { detalleVenta.map((detalle, i) => {
+          { datosList.map((detalle, i) => {
             return(
               <tr className="bg-custom-grey" key={i}>
                 <th>{detalle.titulo}</th>
