@@ -158,7 +158,8 @@ function App() {
                 {
                   path:'/admin/sale',
                   element:<Navigate to='/admin'/>
-                },{
+                },
+                {
                   path: 'create',
                   element: <CreateSale/>
                 }
