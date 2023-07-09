@@ -3,39 +3,16 @@ import { useState } from "react";
 // import { debounce } from "lodash";
 
 export const FormDynamicVenta = () => {
-  const [search, setSearch] = useState("");
-  const [books, setBooks] = useState([
-    {
-      libro: "El principito",
-      id: "1",
-      cantidad: 5,
-      precio: 70,
-      precioTotal: 350,
-    },
-    {
-      libro: "El señor de los anillos",
-      id: "2",
-      cantidad: 5,
-      precio: 70,
-      precioTotal: 350,
-    },
-    {
-      libro: "La sombra del viento",
-      id: "3",
-      cantidad: 5,
-      precio: 70,
-      precioTotal: 350,
-    },
-  ]);
-  const [filteredBooks, setFilteredBooks] = useState([]);
-
-  const [titulo, setTitulo] = useState("");
+  // const [search, setSearch] = useState("");
+  
+  // const [titulo, setTitulo] = useState("");
   const [datosList, setDatosList] = useState([
     { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
     { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
     { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
     { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
   ]);
+
   const [date, setDate] = useState({
     id: "",
     cantidad: 0,
@@ -47,37 +24,38 @@ export const FormDynamicVenta = () => {
     setDatosList(...datosList, date);
   }
   //para el libro
-  const getLibro = async () => {
-    try {
-      const { data, status } = await axios.get("/libro/mostrar", titulo);
-      console.log(data, status);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const handleChangeText = ({ target }) => {
-    setTitulo(target.value);
-    // debouncedFetchData();
-  };
+  // const getLibro = async () => {
+  //   try {
+  //     const { data, status } = await axios.get("/libro/mostrar", titulo);
+  //     console.log(data, status);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const handleChangeSearch = ({ target }) => {
-  const searchTerm = target.value.toLowerCase();
-  setSearch(searchTerm);
+  // const handleChangeText = ({ target }) => {
+  //   setTitulo(target.value);
+  //   // debouncedFetchData();
+  // };
+
+//   const handleChangeSearch = ({ target }) => {
+//   const searchTerm = target.value.toLowerCase();
+//   setSearch(searchTerm);
   
-  if (searchTerm === '') {
-    setFilteredBooks([]);
-  } else {
-    const filteredBooks = books.filter((book) => {
-      return (
-        book.libro.toString().includes(searchTerm)
-      );
-    });
-    setFilteredBooks(filteredBooks);
-  }
-};
+//   if (searchTerm === '') {
+//     setFilteredBooks([]);
+//   } else {
+//     const filteredBooks = books.filter((book) => {
+//       return (
+//         book.libro.toString().includes(searchTerm)
+//       );
+//     });
+//     setFilteredBooks(filteredBooks);
+//   }
+// };
   
 
-  // const debouncedFetchData = debounce(getLibro, 3000);
+// const debouncedFetchData = debounce(getLibro, 3000);
 
   const handleChangeNumber = ({ target }) => {
     const { name, value } = target;
@@ -88,12 +66,12 @@ export const FormDynamicVenta = () => {
   };
 
 
-  // const detalleVenta = [
-  //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
-  //   { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
-  //   { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
-  //   { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
-  // ];
+  const detalleVenta = [
+    { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
+    { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
+    { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
+    { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
+  ];
 
 const handleRemoveDetalle = (id) => {
   const newDataList = datosList.filter((detalle) => detalle.id !== id);
@@ -121,7 +99,7 @@ const handleRemoveDetalle = (id) => {
                 name="titulo"
                 className="rounded-md w-11/12 border-2 border-solid border-black font-normal text-lg pl-2"
                 placeholder="Buscar libro"
-                onChange={handleChangeSearch}
+                // onChange={handleChangeSearch}
               />
             </th>
             <th className="font-normal text-lg">
@@ -172,16 +150,20 @@ const handleRemoveDetalle = (id) => {
           </tr>
         </thead>
         <tbody>
-          <tr className="bg-custom-grey">
-            <th className="pb-2 pt-2">asdsafa</th>
-            <th>asdfafa</th>
-            <th>gadsgfas</th>
-            <th>fgasagasa</th>
-            <th>safafasf</th>
-            <th className="p-2">
-              <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle()}>Eliminar</button>
-            </th>
-          </tr>
+          { detalleVenta.map((detalle, i) => {
+            return(
+              <tr className="bg-custom-grey" key={i}>
+                <th>{detalle.titulo}</th>
+                <th>{detalle.id}</th>
+                <th>{detalle.cantidad}</th>
+                <th>{detalle.precio}</th>
+                <th>{detalle.descuento}</th>
+                <th className="p-2">
+                  <button className="bg-custom-red rounded-md p-2" onClick={ () => handleRemoveDetalle(detalle.id) }>Eliminar</button>
+                </th>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
