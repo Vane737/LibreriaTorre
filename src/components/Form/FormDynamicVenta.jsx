@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import api from "../../API/axios";
 import { useNavigate } from "react-router";
 import { parseInt } from "lodash";
+import { Link } from "react-router-dom";
 const socket = io("https://si1libreria-production-6536.up.railway.app");
 export const FormDynamicVenta = () => {
   const navigate = useNavigate();
@@ -211,9 +212,11 @@ export const FormDynamicVenta = () => {
         >
           Guardar
         </button>
-        <button className="bg-custom-red rounded-md p-2 font-bold text-white px-10 py-2 mx-5">
+        <Link
+          to="/admin/sales" 
+          className="bg-custom-red rounded-md p-2 font-bold text-white px-10 py-2 mx-5">
           Cancelar
-        </button>
+        </Link>
       </div>
     </div>
   );
