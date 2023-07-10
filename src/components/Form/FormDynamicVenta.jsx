@@ -5,7 +5,10 @@ import io  from "socket.io-client";
 const socket = io('https://si1libreria-production-6536.up.railway.app');
 export const FormDynamicVenta = () => {
   const [title, setTitle] = useState("");
-  
+  const [book, setBook] = useState({
+    id:'',
+    precio: 0.0
+  });  
   // const [titulo, setTitulo] = useState("");
   const [datosList, setDatosList] = useState([
     { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
@@ -49,16 +52,29 @@ export const FormDynamicVenta = () => {
     });
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(title);
-    socket.emit('fetchBook', title);
+    // e.preventDefault();
+    if (e.key == 'Enter') {
+      // console.log(title);
+      socket.emit('fetchBook', title);
+    }
   }
 
-  useEffect(() => {
+  // const [shopCart, setShopCart] = useState({});
+
+  // let updatedValue = {};
+  // updatedValue = {"item1":"juice"};
+  // setShopCart(shopCart => ({
+  //     ...shopCart,
+  //     ...updatedValue
+  //   }));
+
+useEffect(() => {
     socket.on('bookData', data => {
-      console.log(data);
-    });
-  }, []);
+      console.log('data', data);
+      setBook( prevbook => ({...book, ...data}));
+      console.log('book', book);
+  }, [])
+});
 
   // const detalleVenta = [
   //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
@@ -74,10 +90,10 @@ const handleRemoveDetalle = (id) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <input type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
         <button>send</button>
-      </form>
+      </form> */}
 
       <table className="table-fixed w-full">
         <thead className="bg-custom-celeste w-full">
@@ -98,6 +114,8 @@ const handleRemoveDetalle = (id) => {
                 name="titulo"
                 className="rounded-md w-11/12 border-2 border-solid border-black font-normal text-lg pl-2"
                 placeholder="Buscar libro"
+                onChange={(e) => setTitle(e.target.value)}
+                onKeyDown={handleSubmit}
               />
             </th>
             <th className="font-normal text-lg">
