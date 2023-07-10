@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import api from "../../API/axios";
 import { useNavigate } from "react-router";
 import { parseInt } from "lodash";
+import { Link } from "react-router-dom";
 const socket = io("https://si1libreria-production-6536.up.railway.app");
 export const FormDynamicCompra = () => {
   const navigate = useNavigate();
@@ -13,30 +14,18 @@ export const FormDynamicCompra = () => {
   const [arrDetalle, setArrDetalle] = useState([]);
   const [descuento, setDescuento] = useState(0.0);
   const [cantidad, setCantidad] = useState(0);
-  const [tipoPago, setTipoPago] = useState([]);
   const [cliente, setCliente] = useState("");
-  const [pagoOption, setPagoOption] = useState(1);
   const [copiaDetalles, setCopiaDetalles] = useState([]);
+  const [precioTotal, setPrecioTotal] = useState(0.0);
 
   const handleClickAdd = () => {
     const total = cantidad * book.precio - descuento;
     const detalle = { ...book, cantidad, descuento, title, precioTotal: total };
-    const copiaDetalle = { libroId: book.id, cantidad: cantidad };
+    const copiaDetalle = { libroId: book.id, cantidad: cantidad, precio: book.precio };
     setArrDetalle([...arrDetalle, detalle]);
     setCopiaDetalles([...copiaDetalles, copiaDetalle]);
+    setPrecioTotal(precioTotal + total);
   };
-
-  useEffect(() => {
-    api
-      .get(`/venta/pagos/tipos-pagos`)
-      .then((res) => {
-        console.log(res.data.pagosDB);
-        setTipoPago(res.data.pagosDB);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
 
   const handleSubmit = (e) => {
     if (e.key == "Enter") {
@@ -51,28 +40,28 @@ export const FormDynamicCompra = () => {
     });
   }, [book]);
 
-  const handleVentaSubmit = () => {
+  const handleShoppingSubmit = () => {
     const token = localStorage.getItem("x-token");
     const copiaDetallesC = copiaDetalles.map((detalle) => ({
       ...detalle,
       cantidad: parseInt(detalle.cantidad),
+      precio: parseInt(detalle.precio),
     }));
 
-    const venta = {
-      cliente: cliente,
+    const compra = {
+      proveedor: cliente,
       detalles: copiaDetallesC,
-      pagoId: pagoOption,
     };
 
     api
-      .post("/venta", venta, {
+      .post("/compra", compra, {
         headers: {
           "x-token": token,
         },
       })
       .then((res) => {
         console.log(res);
-        navigate("/admin/sales");
+        navigate("/admin/shoppings");
       })
       .catch((err) => {
         console.log(err);
@@ -177,43 +166,34 @@ export const FormDynamicCompra = () => {
       </table>
       <div className="my-5 font-bold">
         <label htmlFor="cliente" className="m-2">
-          Cliente
+          Proveedor
         </label>
         <input
           id="cliente"
           type="text"
           name="cliente"
           className="rounded-md .w-1\/2 border-2 border-solid border-black font-normal text-lg pl-2 mr-64"
-          placeholder="Cliente"
+          placeholder="proveedor"
           onChange={(e) => setCliente(e.target.value)}
         />
-        <label htmlFor="cliente" className="mr-5 font-bold">
-          Tipo de Pago
+      </div>
+      <div className="my-5 font-bold">
+        <label htmlFor="total" className="m-2">
+          Sub_total(bs): {precioTotal}
         </label>
-        <select
-          className="rounded-md border-2 border-solid border-black font-normal text-lg pl-2"
-          value={pagoOption}
-          onChange={(e) => setPagoOption(e.target.value)}
-        >
-          {tipoPago.map((pago, i) => {
-            return (
-              <option key={i} value={pago.id}>
-                {pago.nombre}
-              </option>
-            );
-          })}
-        </select>
       </div>
       <div className="mt-64 text-center">
         <button
           className="bg-custom-green rounded-md p-2 font-bold text-white px-10 py-2 mx-5"
-          onClick={handleVentaSubmit}
+          onClick={handleShoppingSubmit}
         >
           Guardar
         </button>
-        <button className="bg-custom-red rounded-md p-2 font-bold text-white px-10 py-2 mx-5">
+        <Link
+          to="/admin/shoppings" 
+          className="bg-custom-red rounded-md p-2 font-bold text-white px-10 py-2 mx-5">
           Cancelar
-        </button>
+        </Link>
       </div>
     </div>
   );
