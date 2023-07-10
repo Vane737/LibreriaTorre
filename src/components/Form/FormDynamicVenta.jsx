@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import axios from "../../API/axios";
 // import { debounce } from "lodash";
-
+import io  from "socket.io-client";
+const socket = io('https://si1libreria-production-6536.up.railway.app');
 export const FormDynamicVenta = () => {
-  // const [search, setSearch] = useState("");
+  const [title, setTitle] = useState("");
   
   // const [titulo, setTitulo] = useState("");
   const [datosList, setDatosList] = useState([
@@ -38,24 +39,7 @@ export const FormDynamicVenta = () => {
   //   // debouncedFetchData();
   // };
 
-//   const handleChangeSearch = ({ target }) => {
-//   const searchTerm = target.value.toLowerCase();
-//   setSearch(searchTerm);
-  
-//   if (searchTerm === '') {
-//     setFilteredBooks([]);
-//   } else {
-//     const filteredBooks = books.filter((book) => {
-//       return (
-//         book.libro.toString().includes(searchTerm)
-//       );
-//     });
-//     setFilteredBooks(filteredBooks);
-//   }
-// };
-  
-
-// const debouncedFetchData = debounce(getLibro, 3000);
+  // const debouncedFetchData = debounce(getLibro, 3000);
 
   const handleChangeNumber = ({ target }) => {
     const { name, value } = target;
@@ -64,7 +48,17 @@ export const FormDynamicVenta = () => {
       [name]: value,
     });
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(title);
+    socket.emit('fetchBook', title);
+  }
 
+  useEffect(() => {
+    socket.on('bookData', data => {
+      console.log(data);
+    });
+  }, []);
 
   // const detalleVenta = [
   //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
@@ -80,6 +74,11 @@ const handleRemoveDetalle = (id) => {
 
   return (
     <div>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="title" onChange={(e) => setTitle(e.target.value)} />
+        <button>send</button>
+      </form>
+
       <table className="table-fixed w-full">
         <thead className="bg-custom-celeste w-full">
           <tr className="pt-3 pb-3 w-full">
@@ -99,7 +98,6 @@ const handleRemoveDetalle = (id) => {
                 name="titulo"
                 className="rounded-md w-11/12 border-2 border-solid border-black font-normal text-lg pl-2"
                 placeholder="Buscar libro"
-                // onChange={handleChangeSearch}
               />
             </th>
             <th className="font-normal text-lg">
