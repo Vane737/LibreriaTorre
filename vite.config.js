@@ -10,5 +10,14 @@ export default defineConfig({
         '.js': 'jsx'
       }
     },
-  }
+  },
+  // server: {
+  //   proxy: {
+  //     '/socket.io': {
+  //       target: 'https://si1libreria-production-6536.up.railway.app', // Reemplaza con la URL de tu servidor de sockets
+  //       changeOrigin: true,
+  //       ws: true,
+  //     },
+  //   },
+  // },
 })
