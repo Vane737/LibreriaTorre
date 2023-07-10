@@ -2,91 +2,71 @@ import { useEffect, useState } from "react";
 // import axios from "../../API/axios";
 // import { debounce } from "lodash";
 import io  from "socket.io-client";
+import api from "../../API/axios";
+import { useNavigate } from "react-router";
 const socket = io('https://si1libreria-production-6536.up.railway.app');
 export const FormDynamicVenta = () => {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
-  const [book, setBook] = useState({
-    id:'',
-    precio: 0.0
-  });  
-  // const [titulo, setTitulo] = useState("");
-  const [datosList, setDatosList] = useState([
-    { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
-    { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
-    { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
-    { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
-  ]);
+  const [book, setBook] = useState({});
+  const [arrDetalle, setArrDetalle] = useState([]);  
+  const [descuento, setDescuento] = useState(0.0);
+  const [cantidad, setCantidad] = useState(0);
+  const [tipoPago, setTipoPago] = useState([]);
+  const [cliente, setCliente] = useState("");
+  const [arrBooks, setArrBooks] = useState([]);
 
-  const [date, setDate] = useState({
-    id: "",
-    cantidad: 0,
-    precio: 0.0,
-    descuento: 0,
-  });
+
 
   const handleClickAdd = ()=>{
-    setDatosList(...datosList, date);
+    const total = (cantidad * book.precio) - descuento;
+    const detalle = {...book, cantidad, descuento, title, precioTotal: total}
+    setArrDetalle([...arrDetalle, detalle]);
+    console.log(detalle);
+    console.log(arrDetalle);
   }
-  //para el libro
-  // const getLibro = async () => {
-  //   try {
-  //     const { data, status } = await axios.get("/libro/mostrar", titulo);
-  //     console.log(data, status);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  
+  useEffect(() =>{
+      api.get(`/venta/pagos/tipos-pagos`)
+      .then((res) => {
+        console.log(res.data.pagosDB);
+        setTipoPago(res.data.pagosDB);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }, [])
 
-  // const handleChangeText = ({ target }) => {
-  //   setTitulo(target.value);
-  //   // debouncedFetchData();
-  // };
 
-  // const debouncedFetchData = debounce(getLibro, 3000);
-
-  const handleChangeNumber = ({ target }) => {
-    const { name, value } = target;
-    setDate({
-      ...date,
-      [name]: value,
-    });
-  };
   const handleSubmit = (e) => {
-    // e.preventDefault();
     if (e.key == 'Enter') {
-      // console.log(title);
       socket.emit('fetchBook', title);
     }
   }
 
-  // const [shopCart, setShopCart] = useState({});
+  useEffect(() => {
+      socket.on('bookData', data => {
+        const newBook = { ...book, id: data.id, precio: data.precio};
+        setBook(newBook);
+      })
+      
+  },[book]);
 
-  // let updatedValue = {};
-  // updatedValue = {"item1":"juice"};
-  // setShopCart(shopCart => ({
-  //     ...shopCart,
-  //     ...updatedValue
-  //   }));
+  const handleVentaSubmit = () => {
+    api.post('/venta')
+    .then((res) => {
+      console.log(res);
+      navigate("/admin/sales");
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
-useEffect(() => {
-    socket.on('bookData', data => {
-      console.log('data', data);
-      setBook( prevbook => ({...book, ...data}));
-      console.log('book', book);
-  }, [])
-});
-
-  // const detalleVenta = [
-  //   { id: '1', titulo:'Codigo', cantidad: 3, precio: 50.00, descuento: 10},
-  //   { id: '2', titulo:'Java para principiantes', cantidad: 5, precio: 60.00, descuento: 0},
-  //   { id: '3', titulo:'Python for Develop', cantidad: 2, precio: 70.00, descuento: 0},
-  //   { id: '4', titulo:'Coraline', cantidad: 2, precio: 100.00, descuento: 0}
-  // ];
-
-const handleRemoveDetalle = (id) => {
-  const newDataList = datosList.filter((detalle) => detalle.id !== id);
-  setDatosList(newDataList);
-};
+// const handleRemoveDetalle = (id) => {
+//   const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+//   setDatosList(newDataList);
+// };
 
   return (
     <div>
@@ -98,7 +78,7 @@ const handleRemoveDetalle = (id) => {
       <table className="table-fixed w-full">
         <thead className="bg-custom-celeste w-full">
           <tr className="pt-3 pb-3 w-full">
-            <th> Libro</th>
+            <th>Libro</th>
             <th>Id</th>
             <th> Cantidad</th>
             <th>Precio</th>
@@ -119,7 +99,7 @@ const handleRemoveDetalle = (id) => {
               />
             </th>
             <th className="font-normal text-lg">
-              <p id="libroId">{date.id}</p>
+              <p id="libroId">{book.id}</p>
             </th>
             <th className="flex items-center justify-center pt-3 pb-3">
               <input
@@ -127,11 +107,11 @@ const handleRemoveDetalle = (id) => {
                 min={1}
                 name="cantidad"
                 className="rounded-md w-1/3 border-2 border-solid border-black font-normal text-lg pl-2"
-                onChange={handleChangeNumber}
+                onChange={(e) => setCantidad(e.target.value)}
               />
             </th>
             <th className="font-normal text-lg">
-              <p id="precio">{date.precio}</p>
+              <p id="precio">{book.precio}</p>
             </th>
             <th className="flex items-center justify-center pt-3 pb-3">
               <input
@@ -140,7 +120,7 @@ const handleRemoveDetalle = (id) => {
                 min={1}
                 name="descuento"
                 className="rounded-md w-1/3 border-2 border-solid border-black font-normal text-lg pl-2"
-                onChange={handleChangeNumber}
+                onChange={(e) => setDescuento(e.target.value)}
               />
             </th>
             <th>
@@ -166,22 +146,48 @@ const handleRemoveDetalle = (id) => {
           </tr>
         </thead>
         <tbody>
-          { datosList.map((detalle, i) => {
+          { arrDetalle.map((detalle, i) => {
             return(
               <tr className="bg-custom-grey" key={i}>
-                <th>{detalle.titulo}</th>
+                <th>{detalle.title}</th>
                 <th>{detalle.id}</th>
                 <th>{detalle.cantidad}</th>
                 <th>{detalle.precio}</th>
-                <th>{detalle.descuento}</th>
+                <th>{detalle.precioTotal}</th>
                 <th className="p-2">
-                  <button className="bg-custom-red rounded-md p-2" onClick={ () => handleRemoveDetalle(detalle.id) }>Eliminar</button>
+                  <button className="bg-custom-red rounded-md p-2">Eliminar</button>
                 </th>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <div className="my-5 font-bold">
+        <label htmlFor="cliente" className="m-2">Cliente</label>
+        <input
+                  id="cliente"
+                  type="text"
+                  name="cliente"
+                  className="rounded-md .w-1\/2 border-2 border-solid border-black font-normal text-lg pl-2 mr-64"
+                  placeholder="Cliente"
+                  onChange={(e) => setCliente(e.target.value)}
+                />
+        <label htmlFor="cliente" className="mr-5 font-bold">Tipo de Pago</label>
+        <select className="rounded-md border-2 border-solid border-black font-normal text-lg pl-2">
+          {
+            tipoPago.map((pago, i) => {
+              return (
+                <option  key={i} value={pago.id}>{pago.nombre}</option>
+              );
+            })
+          }
+        </select>
+              
     </div>
+    <div className="mt-64 text-center">
+    <button className="bg-custom-green rounded-md p-2 font-bold text-white px-10 py-2 mx-5" onClick={handleVentaSubmit}>Guardar</button>
+    <button className="bg-custom-red rounded-md p-2 font-bold text-white px-10 py-2 mx-5">Cancelar</button>
+    </div>
+  </div>
   );
 };

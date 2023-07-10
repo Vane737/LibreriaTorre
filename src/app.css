@@ -571,6 +571,14 @@ video {
   margin-top: 2.5rem;
 }
 
+.mt-64 {
+  margin-top: 10rem;
+}
+
+.mr-64	{
+  margin-right: 16rem;
+}
+
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -648,7 +656,7 @@ video {
 }
 
 .w-64 {
-  width: 16rem;
+  width: 10rem;
 }
 
 .w-auto {
@@ -884,6 +892,10 @@ video {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.px-10 {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .py-2 {
