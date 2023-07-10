@@ -32,6 +32,7 @@ import CreateEditProdiver from './pages/admin/providerr/CreateEditProvider'
 
 import { ReadProdiver } from './pages/admin/providerr/ReadProvider';
 import { ReadSale } from './pages/admin/sales/ReadSale'
+import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 
 
 
@@ -125,6 +126,10 @@ function App() {
                 {
                   path: 'read/:id',
                   element: <ReadBook/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateShopping/>
                 }
               ]
             },
@@ -165,7 +170,7 @@ function App() {
                   element: <CreateSale/>
                 },
                 {
-                  path: 'read:id',
+                  path: 'read/:id',
                   element: <ReadSale/>
                 },
               ]
