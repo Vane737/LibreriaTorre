@@ -16,6 +16,7 @@ export const FormDynamicCompra = () => {
   const [cantidad, setCantidad] = useState(0);
   const [cliente, setCliente] = useState("");
   const [copiaDetalles, setCopiaDetalles] = useState([]);
+  const [precioTotal, setPrecioTotal] = useState(0.0);
 
   const handleClickAdd = () => {
     const total = cantidad * book.precio - descuento;
@@ -23,6 +24,7 @@ export const FormDynamicCompra = () => {
     const copiaDetalle = { libroId: book.id, cantidad: cantidad, precio: book.precio };
     setArrDetalle([...arrDetalle, detalle]);
     setCopiaDetalles([...copiaDetalles, copiaDetalle]);
+    setPrecioTotal(precioTotal + total);
   };
 
   const handleSubmit = (e) => {
@@ -164,16 +166,21 @@ export const FormDynamicCompra = () => {
       </table>
       <div className="my-5 font-bold">
         <label htmlFor="cliente" className="m-2">
-          Cliente
+          Proveedor
         </label>
         <input
           id="cliente"
           type="text"
           name="cliente"
           className="rounded-md .w-1\/2 border-2 border-solid border-black font-normal text-lg pl-2 mr-64"
-          placeholder="Cliente"
+          placeholder="proveedor"
           onChange={(e) => setCliente(e.target.value)}
         />
+      </div>
+      <div className="my-5 font-bold">
+        <label htmlFor="total" className="m-2">
+          Sub_total(bs): {precioTotal}
+        </label>
       </div>
       <div className="mt-64 text-center">
         <button

@@ -18,6 +18,7 @@ export const FormDynamicVenta = () => {
   const [cliente, setCliente] = useState("");
   const [pagoOption, setPagoOption] = useState(1);
   const [copiaDetalles, setCopiaDetalles] = useState([]);
+  const [precioTotal, setPrecioTotal] = useState(0.0);
 
   const handleClickAdd = () => {
     const total = cantidad * book.precio - descuento;
@@ -25,6 +26,7 @@ export const FormDynamicVenta = () => {
     const copiaDetalle = { libroId: book.id, cantidad: cantidad };
     setArrDetalle([...arrDetalle, detalle]);
     setCopiaDetalles([...copiaDetalles, copiaDetalle]);
+    setPrecioTotal(precioTotal + total);
   };
 
   useEffect(() => {
@@ -204,6 +206,11 @@ export const FormDynamicVenta = () => {
             );
           })}
         </select>
+      </div>
+      <div className="my-5 font-bold">
+        <label htmlFor="total" className="m-2">
+          Sub_total(bs): {precioTotal}
+        </label>
       </div>
       <div className="mt-64 text-center">
         <button
