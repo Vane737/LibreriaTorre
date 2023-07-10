@@ -7,11 +7,11 @@ import axios from "axios";
 
 export const Shoppings = () => {
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/compras');
+  const { listData, loading } = useListDatas('/compra');
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
-  const head = ['id', 'proveedor', 'comprador', 'fecha', 'hora','total', 'opciones'];
+  const head = ['Id', 'Proveedor', 'Comprador', 'fecha', 'hora','total'];
 
 
   const handleClickOption = ({ id, option }) => {

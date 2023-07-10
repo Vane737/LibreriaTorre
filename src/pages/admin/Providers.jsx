@@ -11,8 +11,8 @@ export const Providers = () => {
   const navigate = useNavigate();
   const { listData, loading } = useListDatas('/proveedor');
   const [isOpen, setIsOpen] = useState(false);
-  const [isAccept, setIsAccept] = useState(false);
   const [providerId, setProviderId] = useState(null);
+  const [isAccept, setIsAccept] = useState(false);
   const head = ['Id', 'Nombre', 'Correo', 'Telefono', 'Dirección'];
   const [search, setSearch] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);

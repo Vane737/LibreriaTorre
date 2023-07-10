@@ -1,24 +1,63 @@
 import { useNavigate } from 'react-router-dom';
 import { useListDatas } from '../../hook';
 import { ListUserRows } from '../../components/row';
+import { MyModal } from '../../components/utils';
+import api from '../../API/axios';
+import { useEffect, useState } from 'react';
 
+// const response = await fetch(`API_ENDPOINT/ventas?limit=${limit}&offset=${offset}`);
 export const ListSales = () => {
   const navigate = useNavigate();
   const { listData, loading } = useListDatas('/venta');
   const head = ['id', 'fecha', 'hora', 'total', 'tipo pago', 'cliente', 'vendedor'];
+  const [isAccept, setIsAccept] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [saleId, setSaleId] = useState(null);
 
+  
   const handleClickOption = ({ id, option }) => {
     switch (option) {
       case 'borrar':
-        return 'Hola mundo';
+        return handleDeleteSale(id);
       case 'vista':
-        return navigate(`/admin/user/read/${id}`);
+        return navigate(`/admin/sale/read/${id}`);
       case 'editar':
-        return navigate(`/admin/user/edit/${id}`);
+        return navigate(`/admin/sale/edit/${id}`);
       default:
         break;
     }
   };
+
+  const textBorrar = 'Estás seguro de eliminar la Venta?';
+  
+  const handleDeleteSale = (id) => {
+    setSaleId(id);
+    setIsOpen(true);
+  };
+
+  const closeModal = ({ open, accept }) => {
+    setIsOpen(open);
+
+    if (accept) {
+      setIsAccept(true);
+    } else {
+      setIsAccept(false);
+      setSaleId(null);
+    }
+  };
+
+  useEffect(() => {
+    const deleteSale = async () => {
+      if (isAccept && saleId) {
+        const { data, status } = await api.delete(`/sale/${saleId}`);
+        if (status >= 400) return;
+        console.log(data);
+        window.location.reload();
+      }
+    };
+
+    deleteSale();
+  }, [isAccept, saleId]);
 
   const handleClickCreate = ()=>{
     navigate('/admin/sale/create');
@@ -40,7 +79,7 @@ export const ListSales = () => {
             <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} setEdit={false} />
           </div>
         )}
-       
+        {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
     </div>
   );
