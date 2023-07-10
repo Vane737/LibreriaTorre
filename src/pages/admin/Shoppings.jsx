@@ -11,7 +11,7 @@ export const Shoppings = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
-  const head = ['Id', 'Proveedor', 'Comprador', 'fecha', 'hora','total'];
+  const head = ['Id', 'Fecha', 'Hora', 'Total', 'Comprador','Vendedor'];
 
 
   const handleClickOption = ({ id, option }) => {

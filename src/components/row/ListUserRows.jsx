@@ -63,9 +63,6 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit }) => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     </button> 
-                    {/* <AiFillEye className='cursor-pointer text-2xl' onClick={()=>onClickId(b, 'vista')}/> */}
-                    {/* <BsTrashFill className='cursor-pointer text-2xl text-red-600' onClick={()=>onClickId(b, 'borrar')}/> */}
-                    {/* <BiEdit className='cursor-pointer text-2xl text-yellow-500' onClick={()=>onClickId(b, 'editar')}/> */}
                   </div>
               </th>
             </tr>
