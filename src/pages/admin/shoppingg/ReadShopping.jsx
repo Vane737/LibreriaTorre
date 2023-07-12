@@ -41,39 +41,11 @@ import { ListBookShopRows } from "../../../components/row/ListBookShopRows";
     if (!notaCompra) {
         return <div>No se encontró el la nota de venta</div>;
     }
-    
-    // }
-    // "notaCompra": {
-    //     "id": 5,
-    //     "fecha": "2023-07-10",
-    //     "hora": "02:23:39",
-    //     "total": "500.00",
-    //     "usuario": {
-    //         "id": 3,
-    //         "nombre": "vane"
-    //     },
-                                                    //     "proveedore": {
-                                                    //         "id": 5,
-                                                    //         "nombre": "Mario Flores",
-                                                    //         "telefono": "74375174",
-                                                    //         "correo": "mario.flores@gmail.com"
-                                                    //     },
-                                                    //     "Libros": [
-                                                    //         {
-                                                    //             "titulo": "principito",
-                                                    //             "id": 1,
-                                                    //             "detalle_compra": {
-                                                    //                 "cantidad": 2,
-                                                    //                 "precio": "250.00",
-                                                    //                 "importe": "500.00"
-                                                    //             }
-                                                    //         }
-                                                    //     ]
 
     return (
         <div className="w-full p-5 bg-white">
-        <div className="mt-10 ml-24">
-            <p className="font-bold">NOTA DE VENTA</p>
+        <div className="mt-10">
+            <p className="font-bold">NOTA DE COMPRA</p>
         </div>
         <div ref={ componentPDF } className="border-b border-solid border-gray-900 pb-12 bg-white drop-shadow-md">
             <div className="mt-5 p-5 h-screen">

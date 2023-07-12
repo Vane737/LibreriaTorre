@@ -45,7 +45,7 @@ import { useReactToPrint } from "react-to-print";
 
     return (
         <div className="w-full p-5 bg-white">
-        <div className="mt-10 ml-24">
+        <div className="mt-10">
             <p className="font-bold">NOTA DE VENTA</p>
         </div>
         <div ref={ componentPDF } className="border-b border-solid border-gray-900 pb-12 bg-white drop-shadow-md">

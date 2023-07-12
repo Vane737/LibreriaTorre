@@ -60,7 +60,7 @@ export const FormDynamicVenta = () => {
       ...detalle,
       cantidad: parseInt(detalle.cantidad),
     }));
-
+    console.log('Esta es una copia de Detalles', copiaDetallesC);
     const venta = {
       cliente: cliente,
       detalles: copiaDetallesC,
