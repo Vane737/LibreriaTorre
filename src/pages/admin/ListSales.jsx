@@ -44,12 +44,18 @@ export const ListSales = () => {
       setIsAccept(false);
       setSaleId(null);
     }
-  };
-
+  };  
+  
   useEffect(() => {
+    
+    const token = localStorage.getItem("x-token");
     const deleteSale = async () => {
       if (isAccept && saleId) {
-        const { data, status } = await api.delete(`/sale/${saleId}`);
+        const { data, status } = await api.delete(`/venta/${saleId}`, {
+          headers: {
+            "x-token": token,
+          },    
+        });
         if (status >= 400) return;
         console.log(data);
         window.location.reload();

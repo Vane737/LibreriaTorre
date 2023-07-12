@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 // } from 'react-icons/bs'
 // import {BiEdit} from 'react-icons/bi'
 // eslint-disable-next-line react/prop-types
-export const ListBookRows = ({ head=[], body =[] }) => {
+export const ListBookShopRows = ({ head=[], body =[] }) => {
   //obtengo el id y la opcion que se selecciono (borrar,mostrar y editar)
   return (
     <table className='text-center table-fixed w-80 drop-shadow-md'>
@@ -28,19 +28,18 @@ export const ListBookRows = ({ head=[], body =[] }) => {
               <tr className= 'py-3 bg-custom-grey text-center h-12' key={i}>
                 <th className='py-2'>{b.titulo}</th>
                 <th>{b.id}</th>
-                <th>{b.detalle_ventas.cantidad}</th>
                 <th>{b.precio}</th>
-                <th>{b.detalle_ventas.descuento}</th>
-                <th>{b.detalle_ventas.importe}</th>
+                <th>{b.detalle_compra.cantidad}</th>
+                <th>{b.detalle_compra.precio}</th>
+                <th>{b.detalle_compra.importe}</th>
               </tr>
             :
             <tr className= 'py-3 bg-white pt-2 pb-2 text-center' key={i}>
                 <th>{b.titulo}</th>
                 <th>{b.id}</th>
-                <th>{b.detalle_ventas.cantidad}</th>
-                <th>{b.precio}</th>
-                <th>{b.detalle_ventas.descuento}</th>
-                <th>{b.detalle_ventas.importe}</th>
+                <th>{b.detalle_compra.cantidad}</th>
+                <th>{b.detalle_compra.precio}</th>
+                <th>{b.detalle_compra.importe}</th>
             </tr>
           ))
         }
@@ -49,7 +48,7 @@ export const ListBookRows = ({ head=[], body =[] }) => {
   )
 }
 
-ListBookRows.proptypes = {
+ListBookShopRows.proptypes = {
   head : PropTypes.array.isRequired,
   body : PropTypes.array.isRequired,
 }

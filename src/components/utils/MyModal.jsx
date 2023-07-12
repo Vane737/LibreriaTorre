@@ -12,7 +12,7 @@ export const MyModal = ({estados, Text}) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
       <div className="bg-white w-1/3 p-5 rounded-2xl flex flex-col justify-center items-center gap-4">
-        <div className='m-8 '>
+        <div>
           <p className='font-semibold'>{Text}</p>
         </div>
         <div className="flex justify-around w-full">

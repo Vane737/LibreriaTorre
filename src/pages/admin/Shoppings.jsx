@@ -3,7 +3,7 @@ import { useListDatas } from "../../hook";
 import { useEffect, useState } from "react";
 import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
-import axios from "axios";
+import api from "../../API/axios";
 
 export const Shoppings = () => {
   const navigate = useNavigate();
@@ -47,8 +47,13 @@ export const Shoppings = () => {
 
   useEffect(() => {
     const deleteShopping = async () => {
+      const token = localStorage.getItem("x-token");
       if (isAccept && shoppingId) {
-        const { data, status } = await axios.delete(`/compra/${shoppingId}`);
+        const { data, status } = await api.delete(`/compra/${shoppingId}`, {
+          headers: {
+            "x-token": token,
+          },    
+        });        
         if (status >= 400) return;
         console.log(data);
         window.location.reload();

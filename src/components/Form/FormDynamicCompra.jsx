@@ -52,7 +52,6 @@ export const FormDynamicCompra = () => {
       proveedor: cliente,
       detalles: copiaDetallesC,
     };
-
     api
       .post("/compra", compra, {
         headers: {
