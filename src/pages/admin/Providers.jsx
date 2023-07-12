@@ -14,9 +14,9 @@ export const Providers = () => {
   const [providerId, setProviderId] = useState(null);
   const [isAccept, setIsAccept] = useState(false);
   const head = ['Id', 'Nombre', 'Correo', 'Telefono', 'Dirección'];
-  const [search, setSearch] = useState("");
-  const [filteredBooks, setFilteredBooks] = useState([]);
-  const [books, setBooks] = useState([])
+  // const [search, setSearch] = useState("");
+  // const [filteredBooks, setFilteredBooks] = useState([]);
+  // const [books, setBooks] = useState([])
 
   const handleClickOption = ({ id, option }) => {
     switch (option) {
@@ -67,34 +67,34 @@ export const Providers = () => {
   }
 
   // Buscar Proveedor
-  const handleChangeSearch = ({ target }) => {
-    const searchTerm = target.value.toLowerCase();
-    setSearch(searchTerm);
+  // const handleChangeSearch = ({ target }) => {
+  //   const searchTerm = target.value.toLowerCase();
+  //   setSearch(searchTerm);
     
-    if (searchTerm === '') {
-      setFilteredBooks([]);
-    } else {
-      const filteredBooks = books.filter((book) => {
-        return (
-          book.libro.toString().includes(searchTerm)
-        );
-      });
-      setFilteredBooks(filteredBooks);
-    }
-  };
+  //   if (searchTerm === '') {
+  //     setFilteredBooks([]);
+  //   } else {
+  //     const filteredBooks = books.filter((book) => {
+  //       return (
+  //         book.libro.toString().includes(searchTerm)
+  //       );
+  //     });
+  //     setFilteredBooks(filteredBooks);
+  //   }
+  // };
   
   return (
     <div className="w-full p-5">
       <div className="mt-5 p-5 w-full h-screen">
         <h1 className="text-2xl font-bold">Proveedores</h1>
         <div className='flex justify-between pr-4 py-3'>
-          <input
+          {/* <input
                 type="text"
                 name="titulo"
                 className="rounded-md w-1\/2 border-2 border-solid border-black font-normal text-lg pl-2"
                 placeholder="Buscar proveedor"
                 onChange={handleChangeSearch}
-              />
+              /> */}
           <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
           onClick={handleClickCreate}>Añadir Nuevo</button>
         </div>
