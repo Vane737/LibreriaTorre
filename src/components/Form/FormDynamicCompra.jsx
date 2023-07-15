@@ -18,6 +18,7 @@ export const FormDynamicCompra = () => {
   const [copiaDetalles, setCopiaDetalles] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0.0);
 
+  // Aqui se añaden los detalles de una compra y se cacula su precio 
   const handleClickAdd = () => {
     const total = cantidad * book.precio - descuento;
     const detalle = { ...book, cantidad, descuento, title, precioTotal: total };
@@ -67,10 +68,10 @@ export const FormDynamicCompra = () => {
       });
   };
 
-  // const handleRemoveDetalle = (id) => {
-  //   const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
-  //   setDatosList(newDataList);
-  // };
+  const handleRemoveDetalle = (id) => {
+    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+    setArrDetalle(newDataList);
+  };
 
   return (
     <div>
@@ -103,7 +104,6 @@ export const FormDynamicCompra = () => {
             <th className="flex items-center justify-center pt-3 pb-3">
               <input
                 type="number"
-                min={1}
                 name="cantidad"
                 className="rounded-md w-1/3 border-2 border-solid border-black font-normal text-lg pl-2"
                 onChange={(e) => setCantidad(e.target.value)}
@@ -115,8 +115,6 @@ export const FormDynamicCompra = () => {
             <th className="flex items-center justify-center pt-3 pb-3">
               <input
                 type="number"
-                max={100}
-                min={1}
                 name="descuento"
                 className="rounded-md w-1/3 border-2 border-solid border-black font-normal text-lg pl-2"
                 onChange={(e) => setDescuento(e.target.value)}
@@ -154,7 +152,7 @@ export const FormDynamicCompra = () => {
                 <th>{detalle.precio}</th>
                 <th>{detalle.precioTotal}</th>
                 <th className="p-2">
-                  <button className="bg-custom-red rounded-md p-2">
+                  <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle(detalle.id)}>
                     Eliminar
                   </button>
                 </th>

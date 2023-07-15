@@ -63,8 +63,8 @@ import { ListBookShopRows } from "../../../components/row/ListBookShopRows";
                         <p className="font-bold">SUB_TOTAL: {notaCompra.total}</p>
                         <p className="font-bold">TOTAL: {notaCompra.total}</p>
                     </div>
-               </div>
-               <button className="mt-12 bg-custom-grey rounded-md p-1 px-8 font-bold" onClick={ generatePDF }>
+                </div>
+                <button className="mt-12 bg-custom-grey rounded-md p-1 px-8 font-bold" onClick={ generatePDF }>
                     IMPRIMIR
                 </button>
             </div>
