@@ -33,7 +33,6 @@ export const FormDynamicVenta = () => {
     api
       .get(`/venta/pagos/tipos-pagos`)
       .then((res) => {
-        console.log(res.data.pagosDB);
         setTipoPago(res.data.pagosDB);
       })
       .catch((err) => {
@@ -82,10 +81,10 @@ export const FormDynamicVenta = () => {
       });
   };
 
-  // const handleRemoveDetalle = (id) => {
-  //   const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
-  //   setDatosList(newDataList);
-  // };
+  const handleRemoveDetalle = (id) => {
+    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+    setArrDetalle(newDataList);
+  };
 
   return (
     <div>
@@ -169,7 +168,8 @@ export const FormDynamicVenta = () => {
                 <th>{detalle.precio}</th>
                 <th>{detalle.precioTotal}</th>
                 <th className="p-2">
-                  <button className="bg-custom-red rounded-md p-2">
+                  <button className="bg-custom-red rounded-md p-2"
+                  onClick={() => handleRemoveDetalle(detalle.id)}>
                     Eliminar
                   </button>
                 </th>
