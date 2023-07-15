@@ -8,7 +8,6 @@ import {
   EditUser,
   StarPage,
   ReadUser,
-  EditBook,
   ReadBook,
   ListSales,
   CreateSale
@@ -34,6 +33,7 @@ import { ReadProdiver } from './pages/admin/providerr/ReadProvider';
 import { ReadSale } from './pages/admin/sales/ReadSale'
 import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 import { ReadShopping } from './pages/admin/shoppingg/ReadShopping'
+import CreateEditBook from './pages/admin/book/CreateEditBook'
 
 
 
@@ -105,7 +105,7 @@ function App() {
                 },
                 {
                   path: 'edit/:id',
-                  element: <EditBook/>
+                  element: <CreateEditBook/>
                 },
                 {
                   path: 'read/:id',
@@ -113,7 +113,7 @@ function App() {
                 },
                 {
                   path: 'create',
-                  element: <EditBook/>
+                  element: <CreateEditBook/>
                 }
               ]
             },
