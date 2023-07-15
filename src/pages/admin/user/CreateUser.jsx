@@ -1,13 +1,21 @@
-import { useForm } from "react-hook-form";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import api from "../../../API/axios";
-import { useEffect, useState } from "react";
-export default function EditUser() {
+import { useForm } from 'react-hook-form';
+import {
+  Link,
+  useNavigate,
+  useParams
+} from 'react-router-dom'
+import api from '../../../API/axios';
+import { useEffect, useState } from 'react';
+export default function CreateUser(){
   let { id } = useParams();
   const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
   //form
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset
+  } = useForm();
 
   useEffect(() => {
     api
@@ -21,43 +29,54 @@ export default function EditUser() {
   }, [roles]);
 
   //handlers
-  const handleUserSubmit = (data) => {
-    api
-      .put(`usuario/${id}`, data)
+  const handleBookSubmit = (data) => {
+    if(id){
+      //editar
+      api.put(`usuario/${id}`, data)
       .then((res) => {
         console.log(res);
         navigate("/admin/users");
       })
       .catch((err) => {
         console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    if (id) {
-      api
-        .get(`/usuario/${id}`)
-        .then((res) => {
-          console.log(res.data.usuario);
-          reset({
-            nombre: res.data.usuario.nombre,
-            correo: res.data.usuario.correo,
-            telefono: res.data.usuario.telefono,
-            rolId: res.data.usuario.role.id,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      })
+    }else{
+      //crear
+      api.post("usuario", data).
+      then((res) => {
+        console.log(res);
+        navigate("/admin/users");
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     }
-  }, [reset, id]);
+  }
+
+  useEffect(() =>{
+    if (id) {
+      api.get(`/usuario/${id}`)
+      .then((res) => {
+        console.log(res.data.usuario);
+        reset({
+          nombre: res.data.usuario.nombre,
+          correo: res.data.usuario.correo,
+          telefono: res.data.usuario.telefono,
+          rolId: res.data.usuario.role.id
+        });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+  },[reset, id]);
 
   return (
     <div className="container mx-auto w-3/6">
       <h1 className="text-2xl font-bold text-center mb-4 w-full pt-5">
-        EDITAR USUARIO 
+        {id ? "EDITAR USUARIO" : "REGISTRAR USUARIO"}
       </h1>
-      <form onSubmit={handleSubmit(handleUserSubmit)}>
+      <form onSubmit={handleSubmit(handleBookSubmit)}>
         <div className="mb-4">
           <label htmlFor="nombre" className="block mb-2 w-full">
             NOMBRE
@@ -75,6 +94,25 @@ export default function EditUser() {
           <input
             type="email"
             {...register("correo")}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="password" className="block mb-2">
+            CONTRASEÑA
+          </label>
+          <input
+            type="password"
+            {...register("password")}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="categoria" className="block mb-2">
+            REPETIR CONTRASEÑA
+          </label>
+          <input
+            type="password"
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
@@ -97,25 +135,26 @@ export default function EditUser() {
               className="border border-gray-300 px-3 py-2 rounded-md w-full"
               {...register("rolId")}
             >
-              {roles.map((rol, i) => {
-                return (
-                  <option key={i} value={rol.id}>
-                    {rol.nombre}
-                  </option>
-                );
-              })}
-            </select>
+            {roles.map((rol, i) => {
+              return (
+                <option key={i} value={rol.id}>
+                  {rol.nombre}
+                </option>
+              );
+            })}
+          </select>
           </div>
         </div>
         <div className="mt-10">
           <button
             type="submit"
-            className="bg-custom-yellow rounded-md p-2 block w-full mb-4"
+            className="bg-custom-green rounded-md p-2 block w-full mb-4"
           >
-            Actualizar
+            {id ? "Editar" : "Registrar"}
           </button>
+
           <Link
-            type="button"
+            type="button" 
             className="bg-custom-red rounded-md text-center p-2 block w-full"
             to="/admin/users"
           >
@@ -124,5 +163,5 @@ export default function EditUser() {
         </div>
       </form>
     </div>
-  );
+  )
 }

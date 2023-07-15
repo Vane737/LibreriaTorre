@@ -5,7 +5,6 @@ import {
 import {
   ListUsers,
   ListBooks,
-  EditUser,
   StarPage,
   ReadUser,
   ReadBook,
@@ -34,6 +33,8 @@ import { ReadSale } from './pages/admin/sales/ReadSale'
 import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 import { ReadShopping } from './pages/admin/shoppingg/ReadShopping'
 import CreateEditBook from './pages/admin/book/CreateEditBook'
+import EditUser from './pages/admin/user/EditUser'
+import CreateUser from './pages/admin/user/CreateUser'
 
 
 
@@ -93,6 +94,10 @@ function App() {
                 {
                   path: "read/:id",
                   element: <ReadUser/>
+                },
+                {
+                  path: "create",
+                  element: <CreateUser/>
                 }
               ]
             },
