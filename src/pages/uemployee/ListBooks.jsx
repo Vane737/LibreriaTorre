@@ -50,7 +50,6 @@ export const ListBooks = () => {
       setBookId(null);
     }
   };
-  
   useEffect(() => {
     const deleteBook = async () => {
       if (isAccept && bookId) {

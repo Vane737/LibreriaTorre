@@ -34,6 +34,7 @@ import { ReadProdiver } from './pages/admin/providerr/ReadProvider';
 import { ReadSale } from './pages/admin/sales/ReadSale'
 import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 import { ReadShopping } from './pages/admin/shoppingg/ReadShopping'
+import { ListBookss } from './pages/uclient/ListBookss'
 
 
 
@@ -62,6 +63,10 @@ function App() {
             {
               path: "home",
               element: <StarPage/>
+            },
+            {
+              path: "client",
+              element: <ListBookss/>
             },
             {
               path: "users",
