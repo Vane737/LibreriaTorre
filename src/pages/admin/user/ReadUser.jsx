@@ -39,7 +39,8 @@ export const ReadUser = () => {
                   <p className="py-3"><strong>Email:</strong> {usuario.correo}</p>
                   <p className="py-3"><strong>Teléfono:</strong> {usuario.telefono}</p>
                   <p className="py-3"><strong>Rol:</strong> {usuario.role.nombre}</p>
-                  {/* <p className="py-3"><strong>Dirección:</strong> {usuario.direccion}</p> */}
+                  {/* <p className="py-3"><strong>Ultima vez que inicio sesión:</strong> {usuario.hora}, {usuario.fecha}</p> */}
+                  {/* <p className="py-3"><strong>Ultima vez que cerro sesión:</strong> {usuario.hora}, {usuario.fecha}</p> */}
           </div>
       </div>
   );
