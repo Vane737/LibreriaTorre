@@ -5,10 +5,8 @@ import {
 import {
   ListUsers,
   ListBooks,
-  EditUser,
   StarPage,
   ReadUser,
-  EditBook,
   ReadBook,
   ListSales,
   CreateSale
@@ -35,6 +33,9 @@ import { ReadSale } from './pages/admin/sales/ReadSale'
 import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 import { ReadShopping } from './pages/admin/shoppingg/ReadShopping'
 import { ListBookss } from './pages/uclient/ListBookss'
+import CreateEditBook from './pages/admin/book/CreateEditBook'
+import EditUser from './pages/admin/user/EditUser'
+import CreateUser from './pages/admin/user/CreateUser'
 
 
 
@@ -98,6 +99,10 @@ function App() {
                 {
                   path: "read/:id",
                   element: <ReadUser/>
+                },
+                {
+                  path: "create",
+                  element: <CreateUser/>
                 }
               ]
             },
@@ -110,7 +115,7 @@ function App() {
                 },
                 {
                   path: 'edit/:id',
-                  element: <EditBook/>
+                  element: <CreateEditBook/>
                 },
                 {
                   path: 'read/:id',
@@ -118,7 +123,7 @@ function App() {
                 },
                 {
                   path: 'create',
-                  element: <EditBook/>
+                  element: <CreateEditBook/>
                 }
               ]
             },
