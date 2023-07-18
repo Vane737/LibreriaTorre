@@ -36,6 +36,7 @@ import { ListBookss } from './pages/uclient/ListBookss'
 import CreateEditBook from './pages/admin/book/CreateEditBook'
 import EditUser from './pages/admin/user/EditUser'
 import CreateUser from './pages/admin/user/CreateUser'
+import CreateEditRol from './pages/admin/rol/CreateEditRol'
 
 
 
@@ -183,6 +184,23 @@ function App() {
                 {
                   path: 'read/:id',
                   element: <ReadSale/>
+                },
+              ]
+            },
+            {
+              path: 'roles',
+              element: <ListSales/>, 
+            },
+            {
+              path: 'roles',
+              children: [
+                {
+                  path:'/admin/roles',
+                  element:<Navigate to='/admin'/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateEditRol/>
                 },
               ]
             }
