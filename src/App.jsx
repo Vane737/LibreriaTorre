@@ -23,8 +23,7 @@ import {
   useRoutes,
   Navigate
 } from 'react-router-dom'
-import { Providers } from './pages/admin/Providers'
-import { Shoppings } from './pages/admin/Shoppings'
+import { ListShoppings } from './pages/admin/ListShoppings'
 
 import CreateEditProdiver from './pages/admin/providerr/CreateEditProvider'
 
@@ -36,7 +35,9 @@ import { ListBookss } from './pages/uclient/ListBookss'
 import CreateEditBook from './pages/admin/book/CreateEditBook'
 import EditUser from './pages/admin/user/EditUser'
 import CreateUser from './pages/admin/user/CreateUser'
-
+import { ListProviders } from './pages/admin/ListProviders'
+import { ListCategories } from './pages/admin/ListCategories'
+import { ListRoles } from './pages/admin/ListRoles'
 
 
 function App() {
@@ -74,16 +75,24 @@ function App() {
               element: <ListUsers/>,
             },
             {
+              path: "categories",
+              element: <ListCategories/>,
+            },
+            {
+              path: "roles",
+              element: <ListRoles/>,
+            },
+            {
               path: "books",
               element: <ListBooks/>
             },
             {
               path: "providers",
-              element: <Providers />
+              element: <ListProviders />
             },
             {
               path: "shoppings",
-              element: <Shoppings />
+              element: <ListShoppings />
             },
             {
               path: "user",

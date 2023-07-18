@@ -6,7 +6,7 @@ import { MyModal } from "../../components/utils";
 import api from "../../API/axios";
 
 
-export const Providers = () => {
+export const ListProviders = () => {
 
   const navigate = useNavigate();
   const { listData, loading } = useListDatas('/proveedor');

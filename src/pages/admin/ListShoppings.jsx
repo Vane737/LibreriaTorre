@@ -5,7 +5,7 @@ import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
 import api from "../../API/axios";
 
-export const Shoppings = () => {
+export const ListShoppings = () => {
   const navigate = useNavigate();
   const { listData, loading } = useListDatas('/compra');
   const [isOpen, setIsOpen] = useState(false);

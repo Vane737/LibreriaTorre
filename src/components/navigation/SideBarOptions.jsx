@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
 
 // import {
@@ -56,6 +57,18 @@ export const SideBarOptions = ({ selected }) => {
                 <Link to='/admin/providers' className={`flex text-xp py-2 px-4 rounded ${selected === "/admin/providers" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
                 {/* <AiOutlineUser className="mr-4 mb-0 mt-1 text-black" /> */}
                     <span className="text-black">PROVEEDOR</span>
+                </Link>
+            </li>
+            <li className="p-4 pt-0">
+                <Link to='/admin/roles' className={`flex text-xp py-2 px-4 rounded ${selected === "/admin/roles" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
+                {/* <AiOutlineUser className="mr-4 mb-0 mt-1 text-black" /> */}
+                    <span className="text-black">ROL</span>
+                </Link>
+            </li>
+            <li className="p-4 pt-0">
+                <Link to='/admin/categories' className={`flex text-xp py-2 px-4 rounded ${selected === "/admin/categories" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
+                {/* <AiOutlineUser className="mr-4 mb-0 mt-1 text-black" /> */}
+                    <span className="text-black">CATEGORIA</span>
                 </Link>
             </li>
         </>
