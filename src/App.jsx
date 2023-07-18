@@ -198,14 +198,10 @@ function App() {
               ]
             },
             {
-              path: 'roles',
-              element: <ListSales/>, 
-            },
-            {
-              path: 'roles',
+              path: 'rol',
               children: [
                 {
-                  path:'/admin/roles',
+                  path:'/admin/rol',
                   element:<Navigate to='/admin'/>
                 },
                 {
