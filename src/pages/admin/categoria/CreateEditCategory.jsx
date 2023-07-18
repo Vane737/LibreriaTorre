@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../../../API/axios";
 import { useForm } from "react-hook-form";
 
-export default function CreateEditRol() {
+export default function CreateEditCategory() {
   let { id } = useParams();
   const navigate = useNavigate();
 

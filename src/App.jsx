@@ -39,7 +39,7 @@ import { ListProviders } from './pages/admin/ListProviders'
 import { ListCategories } from './pages/admin/ListCategories'
 import { ListRoles } from './pages/admin/ListRoles'
 import CreateEditRol from './pages/admin/rol/CreateEditRol'
-
+import CreateEditCategory from './pages/admin/categoria/CreateEditCategory'
 
 
 function App() {
@@ -207,6 +207,27 @@ function App() {
                 {
                   path: 'create',
                   element: <CreateEditRol/>
+                },
+                {
+                  path: 'edit/:id',
+                  element: <CreateEditRol/>
+                },
+              ]
+            },
+            {
+              path: 'category',
+              children: [
+                {
+                  path:'/admin/category',
+                  element:<Navigate to='/admin'/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateEditCategory/>
+                },
+                {
+                  path: 'edit/:id',
+                  element: <CreateEditCategory/>
                 },
               ]
             }
