@@ -16,38 +16,42 @@ export default function CreateEditBook () {
   //handlers
   const handleBookSubmit = (data) => {
     console.log('data', data);
-    const formData = new FormData();
-    for (let key in data) {
-      formData.append(key, data[key]);
-    }
-    //image
-    formData.append('img', data.img[0]);
-    // if (data.image[0]) {
-    // }
-    // const dataWithImage = {...data, img: data.img[0]};
-    if(id){
+    if (id) {
       //editar
       api.put(`libro/${id}`, data)
-      .then((res) => {
-        console.log(res);
-        navigate("/admin/providers");
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }else{
+        .then((res) => {
+          console.log(res);
+          navigate("/admin/providers");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
       //crear
-      console.log("datawithimage", formData);
-      api.post("libro", formData).
-      then((res) => {
-        console.log(res);
-        navigate("/admin/book");
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+      const formData = new FormData();
+      formData.append('img', data.img[0]);
+      for (let key in data) {
+        if (key !== 'img') {
+          formData.append(key, data[key]);
+        }
+      }
+      for (const entry of formData.entries()) {
+        console.log(entry[0] + ': ' + entry[1]);
+      }
+
+      const camposArray = [...formData.entries()];
+      const longitud = camposArray.length;
+      console.log('longitud', longitud);
+      api.post("/libro", formData)
+        .then((res) => {
+          console.log(res);
+          navigate("/admin/book");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }
+  };
 
   return (
     <div className="container mx-auto w-3/6">
