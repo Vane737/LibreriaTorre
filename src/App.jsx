@@ -38,6 +38,8 @@ import CreateUser from './pages/admin/user/CreateUser'
 import { ListProviders } from './pages/admin/ListProviders'
 import { ListCategories } from './pages/admin/ListCategories'
 import { ListRoles } from './pages/admin/ListRoles'
+import CreateEditRol from './pages/admin/rol/CreateEditRol'
+
 
 
 function App() {
@@ -192,6 +194,23 @@ function App() {
                 {
                   path: 'read/:id',
                   element: <ReadSale/>
+                },
+              ]
+            },
+            {
+              path: 'roles',
+              element: <ListSales/>, 
+            },
+            {
+              path: 'roles',
+              children: [
+                {
+                  path:'/admin/roles',
+                  element:<Navigate to='/admin'/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateEditRol/>
                 },
               ]
             }
