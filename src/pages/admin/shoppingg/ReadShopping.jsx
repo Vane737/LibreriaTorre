@@ -31,15 +31,15 @@ import { ListBookShopRows } from "../../../components/row/ListBookShopRows";
      
     const generatePDF = useReactToPrint({
         content: () =>  componentPDF.current,
-        documentTitle: "Nota de Venta",
+        documentTitle: "Nota de Compra",
     });
 
     if (loading) {
-        return <div>Cargando nota de venta...</div>;
+        return <div>Cargando nota de compra...</div>;
     }
     
     if (!notaCompra) {
-        return <div>No se encontró el la nota de venta</div>;
+        return <div>No se encontró el la nota de compra</div>;
     }
 
     return (

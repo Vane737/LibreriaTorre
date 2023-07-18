@@ -28,7 +28,6 @@ export const ListBookShopRows = ({ head=[], body =[] }) => {
               <tr className= 'py-3 bg-custom-grey text-center h-12' key={i}>
                 <th className='py-2'>{b.titulo}</th>
                 <th>{b.id}</th>
-                <th>{b.precio}</th>
                 <th>{b.detalle_compra.cantidad}</th>
                 <th>{b.detalle_compra.precio}</th>
                 <th>{b.detalle_compra.importe}</th>
