@@ -15,7 +15,7 @@ export default function CreateEditCategory() {
   
   //handlers
   const handleProviderSubmit = (data) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("x-token");
     if(id){
       //editar
       api.put(`/categoria/${id}`, data, {
@@ -25,7 +25,7 @@ export default function CreateEditCategory() {
       })
       .then((res) => {
         console.log(res);
-        navigate("/admin/categorias");
+        navigate("/admin/categories");
       })
       .catch((err) => {
         console.log(err);
@@ -39,7 +39,7 @@ export default function CreateEditCategory() {
       })
       .then((res) => {
         console.log(res);
-        navigate("/admin/categorias");
+        navigate("/admin/categories");
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +75,7 @@ export default function CreateEditCategory() {
           <Link
             type="button" 
             className="bg-custom-red rounded-md text-center p-2 block w-full"
-            to="/admin/categorias"
+            to="/admin/categories"
           >
             Cancelar
           </Link>
