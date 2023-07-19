@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 // } from 'react-icons/bs'
 // import {BiEdit} from 'react-icons/bi'
 // eslint-disable-next-line react/prop-types
-export const ListBookRows = ({ head=[], body =[] }) => {
+export const ListBookSaleRows = ({ head=[], body =[] }) => {
   //obtengo el id y la opcion que se selecciono (borrar,mostrar y editar)
   return (
     <table className='text-center table-fixed w-80 drop-shadow-md'>
@@ -49,7 +49,7 @@ export const ListBookRows = ({ head=[], body =[] }) => {
   )
 }
 
-ListBookRows.proptypes = {
+ListBookSaleRows.proptypes = {
   head : PropTypes.array.isRequired,
   body : PropTypes.array.isRequired,
 }

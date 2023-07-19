@@ -21,6 +21,7 @@ export const ListBooks = () => {
     'precio',
     'categoria',
     'editorial',
+    'cantidad',
    ]
   const textBorrar = 'Estas seguro de Eliminar el libro?'
   const handleClickOption = ({id , option})=>{
@@ -60,7 +61,7 @@ export const ListBooks = () => {
       }
     };
     deleteBook();
-  }, [isAccept, setBookId]);
+  }, [isAccept, bookId]);
 
   const handleClickCreate = ()=>{
     navigate('/admin/book/create');

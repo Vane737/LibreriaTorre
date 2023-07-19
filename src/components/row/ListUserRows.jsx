@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 // } from 'react-icons/bs'
 // import {BiEdit} from 'react-icons/bi'
 // eslint-disable-next-line react/prop-types
-export const ListUserRows = ({ head=[], body =[], getId, setEdit }) => {
+export const ListUserRows = ({ head=[], body =[], getId, setEdit, setSee = true }) => {
   //obtengo el id y la opcion que se selecciono (borrar,mostrar y editar)
   const onClickId = (b, option)=>{
     getId({
@@ -36,8 +36,8 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit }) => {
             ?
             <tr className= 'bg-custom-grey text-center h-12' key={i}>
               {
-                Object.keys(b).map((value, i)=>(
-                  <th className='font-normal' key={i}>{b[value].nombre?b[value].nombre:b[value]}</th>
+                Object.keys(b).map((value, idx)=>(
+                  <th className='font-normal' key={idx}>{b[value].nombre? b[value].nombre : value == 'inventario' ? b[value].cantidad : b[value]}</th>
                 ))
               }
               <th>
@@ -57,20 +57,25 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit }) => {
                       :
                       <span></span>
                     }
-                    <button className="rounded-md p-2" onClick={()=>onClickId(b, 'vista')}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </button> 
+                    {
+                    setSee ?
+                      <button className="rounded-md p-2" onClick={()=>onClickId(b, 'vista')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </button>
+                      :
+                      <span></span> 
+                    }
                   </div>
               </th>
             </tr>
             :
             <tr className= 'bg-white pt-2 pb-2 text-center' key={i}>
               {
-                Object.keys(b).map((value, i)=>(
-                  <th className='font-normal' key={i}>{b[value].nombre?b[value].nombre:b[value]}</th>
+                Object.keys(b).map((value, idx)=>(
+                  <th className='font-normal' key={idx}>{b[value].nombre? b[value].nombre : value == 'inventario' ? b[value].cantidad : b[value]}</th>
                 ))
               }
               <th>
@@ -90,12 +95,17 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit }) => {
                       :
                       <span></span>
                   }
-                  <button className="rounded-md p-2" onClick={()=>onClickId(b, 'vista')}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </button>  
+                  {
+                    setSee ?
+                      <button className="rounded-md p-2" onClick={()=>onClickId(b, 'vista')}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </button>
+                      :
+                      <span></span> 
+                  }
                   {/* <AiFillEye className='cursor-pointer text-2xl' onClick={()=>onClickId(b, 'vista')}/> */}
                   {/* <BsTrashFill className='cursor-pointer text-2xl text-red-600' onClick={()=>onClickId(b, 'borrar')}/> */}
                   {/* <BiEdit className='cursor-pointer text-2xl text-yellow-500'onClick={()=>onClickId(b, 'editar')} /> */}

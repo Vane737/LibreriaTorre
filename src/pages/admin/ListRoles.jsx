@@ -9,7 +9,7 @@ import api from "../../API/axios";
 export const ListRoles = () => {
 
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/usuario/roles');
+  const { listData, loading } = useListDatas('/rol');
   const [isOpen, setIsOpen] = useState(false);
   const [rolId, setRolId] = useState(null);
   const [isAccept, setIsAccept] = useState(false);
@@ -51,8 +51,13 @@ export const ListRoles = () => {
 
   useEffect(() => {
     const deleteRol = async () => {
+      const token = localStorage.getItem("x-token"); 
       if (isAccept && rolId) {
-        const { data, status } = await api.delete(`usuario/rol/${rolId}`);
+        const { data, status } = await api.delete(`rol/${rolId}`, {
+          headers: {
+            "x-token": token
+          }
+        });
         if (status >= 400) return;
         console.log(data);
         window.location.reload();
@@ -101,7 +106,7 @@ export const ListRoles = () => {
         {loading ? (
           <p>Cargando....</p>
         ) : (
-        <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption} setEdit={true}/>
+        <ListUserRows head={head} body={listData.roles} getId={handleClickOption} setEdit={true} setSee={false}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>

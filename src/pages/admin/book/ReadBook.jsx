@@ -55,7 +55,7 @@ export const ReadBook = () => {
             </div>
             <div>
               
-              <img className='h-28 w-84 h-84 mt-15' src={ libro.image? libro.image :DefaultImage } alt={libro.titulo} />
+              <img className='h-28 w-84 h-84 mt-15' src={ libro.img? libro.img :DefaultImage } alt={libro.titulo} />
             </div>
           <div>
 

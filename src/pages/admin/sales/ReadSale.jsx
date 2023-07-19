@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import api from "../../../API/axios";
 import { useParams } from "react-router";
-import { ListBookRows } from "../../../components/row/ListBookRows";
+import { ListBookSaleRows } from "../../../components/row/ListBookSaleRows";
 import { useReactToPrint } from "react-to-print";
 
 
@@ -59,7 +59,7 @@ import { useReactToPrint } from "react-to-print";
                     <p className="pb-12 text-base font-bold leading-7 text-gray-900">Correo: {notaVenta.cliente.correo}</p>
                     {/* <p className="py-3"><strong>Dirección:</strong> {notaVenta.direccion}</p>  */}
                 <div>
-                    <ListBookRows head={head} body={notaVenta.Libros}/>
+                    <ListBookSaleRows head={head} body={notaVenta.Libros}/>
                     <div className="mt-5">
                         <p className="font-bold">SUB_TOTAL: {notaVenta.total}</p>
                         <p className="font-bold">TOTAL: {notaVenta.total}</p>

@@ -49,10 +49,22 @@ export const ListCategories = () => {
     }
   };
 
-  useEffect(() => {
-    const deleteCategory = async () => {
+  // if (isAccept && shoppingId) {
+  //   const { data, status } = await api.delete(`/compra/${shoppingId}`, {
+  //     headers: {
+  //       "x-token": token,
+  //     },    
+  //   });
+    
+    useEffect(() => {
+      const deleteCategory = async () => {
+      const token = localStorage.getItem("x-token");
       if (isAccept && categoryId) {
-        const { data, status } = await api.delete(`/categoria/${categoryId}`);
+        const { data, status } = await api.delete(`/categoria/${categoryId}`, {
+          headers: {
+            "x-token": token,
+          }
+        });
         if (status >= 400) return;
         console.log(data);
         window.location.reload();
@@ -101,7 +113,7 @@ export const ListCategories = () => {
         {loading ? (
           <p>Cargando....</p>
         ) : (
-        <ListUserRows head={head} body={listData.categoriaes} getId={handleClickOption} setEdit={true}/>
+        <ListUserRows head={head} body={listData.categorias} getId={handleClickOption} setEdit={false} setSee={false}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
