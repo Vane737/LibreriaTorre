@@ -315,6 +315,10 @@ function App() {
               element: <Navigate to="/provider/home" />
             },
             {
+              path: "home",
+              element: <StarPage/>
+            },
+            {
               path: "books",
               element: <ListBooksProvider/>
             },

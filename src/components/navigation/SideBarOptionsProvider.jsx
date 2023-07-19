@@ -42,7 +42,7 @@ export const SideBarOptionsProvider = ({ selected }) => {
     return (
         <>
             <li className="p-4">
-                <Link to="/client/home" className={`flex text-xp py-2 px-4 rounded ${selected === "/client/home" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
+                <Link to="/provider/home" className={`flex text-xp py-2 px-4 rounded ${selected === "/provider/home" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
                     {/* <div className='bg-white w-full flex rounded'> */}
                         {/* <AiOutlineHome className="mr-4 mb-0 mt-1 text-black" /> */}
                         <span className="text-black">INICIO</span>
@@ -51,7 +51,7 @@ export const SideBarOptionsProvider = ({ selected }) => {
             </li>
 
             <li className="p-4 pt-0">
-                <Link to='/client/books' className={`flex text-xp py-2 px-4 rounded  ${selected === "/client/books" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
+                <Link to='/provider/books' className={`flex text-xp py-2 px-4 rounded  ${selected === "/provider/books" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
                     {/* <AiOutlineUser className="mr-4 mb-0 mt-1 text-black" /> */}
                     <span className="text-black">LIBROS</span>
                 </Link>

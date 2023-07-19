@@ -21,6 +21,7 @@ export const ListBooksProvider = () => {
     'precio',
     'categoria',
     'editorial',
+    'cantidad',
    ]
   const textBorrar = 'Estas seguro de Eliminar el libro?'
   const handleClickOption = ({id , option})=>{
@@ -76,7 +77,7 @@ export const ListBooksProvider = () => {
         {
           loading 
           ?<p>Cargando</p>
-          :<ListUserRows head={head} body={listData.usuarios} getId={handleClickOption}/>
+          :<ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} setDelete={false}/>
         }
         {
           isOpen && <MyModal Text={textBorrar} estados={closeModal} />
