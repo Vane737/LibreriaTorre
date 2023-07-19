@@ -297,6 +297,10 @@ function App() {
               element: <Navigate to="/client/home" />
             },
             {
+              path: "home",
+              element: <StarPage/>
+            },
+            {
               path: "books",
               element: <ListBooksClient/>
             },

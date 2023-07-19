@@ -32,7 +32,7 @@ export const LoginForm = () => {
               }
           });
           // console.log(response);
-          console.log(response.data.usuario);
+          // console.log(response.data.usuario);
           setUser(response.data.usuario);
       } catch (error) {
           console.error(error);

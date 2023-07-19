@@ -9,6 +9,8 @@ import { LogoutModal } from '../utils';
 
 import {SideBarOptions as Admin } from "./SideBarOptions";
 import {SideBarOptionsEmployee as Employee } from "./SideBarOptionsEmployee";
+import {SideBarOptionsClient as Client } from "./SideBarOptionsClient";
+import {SideBarOptionsProvider as Provider } from "./SideBarOptionsProvider";
 import api from '../../API/axios';
 
 export const SideBarMenu = ({ redirecTo = 'admin' }) => {
@@ -63,11 +65,11 @@ export const SideBarMenu = ({ redirecTo = 'admin' }) => {
           case 'admin':
               return <Admin selected={selected} />
           case 'client':
-              return <Admin selected={selected} />
+              return <Client selected={selected} />
           case 'employee':
               return <Employee selected={selected} />
           case 'provider':
-              return <Admin selected={selected} />
+              return <Provider selected={selected} />
           default:
               break;
       }
