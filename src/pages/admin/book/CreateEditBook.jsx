@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../../../API/axios";
+import { useEffect, useState } from "react";
 
-export default function CreateEditBook () {
+export default function CreateEditBook() {
   let { id } = useParams();
   const navigate = useNavigate();
+  const [categorias, setCategorias] = useState([]);
 
   //form
   const {
@@ -13,12 +15,25 @@ export default function CreateEditBook () {
     // reset
   } = useForm();
 
+  useEffect(() => {
+    api
+      .get(`/categoria`)
+      .then((res) => {
+        setCategorias(res.data.categorias);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   //handlers
   const handleBookSubmit = (data) => {
-    console.log('data', data);
+    const token = localStorage.getItem('x-token');
+    console.log("data", data);
     if (id) {
       //editar
-      api.put(`libro/${id}`, data)
+      api
+        .put(`libro/${id}`, data)
         .then((res) => {
           console.log(res);
           navigate("/admin/providers");
@@ -29,20 +44,30 @@ export default function CreateEditBook () {
     } else {
       //crear
       const formData = new FormData();
-      formData.append('img', data.img[0]);
+      formData.append("img", data.img[0]);
       for (let key in data) {
-        if (key !== 'img') {
+        if (key !== "img" && key !== "autores") {
           formData.append(key, data[key]);
         }
       }
+      // const autores = data.autores.split(",");
+      const autores = ["james", "jose"];
+      // formData.append("autores", JSON.stringify(autores));
+      formData.append("autores", autores);
+
       for (const entry of formData.entries()) {
-        console.log(entry[0] + ': ' + entry[1]);
+        console.log(entry[0] + ": " + entry[1]);
       }
 
       const camposArray = [...formData.entries()];
       const longitud = camposArray.length;
-      console.log('longitud', longitud);
-      api.post("/libro", formData)
+      console.log("longitud", longitud);
+      api
+        .post("/libro", formData,{
+          headers: {
+            "x-token": token,
+          }
+        })
         .then((res) => {
           console.log(res);
           navigate("/admin/book");
@@ -89,7 +114,7 @@ export default function CreateEditBook () {
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="categoria" className="block mb-2">
             CATEGORIA
           </label>
@@ -98,6 +123,23 @@ export default function CreateEditBook () {
             {...register("categoria")}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+        </div> */}
+        <div className="mb-4">
+          <label htmlFor="direccion" className="block mb-2">
+            CATEGORIA
+          </label>
+          <select
+            className="border border-gray-300 px-3 py-2 rounded-md w-full"
+            {...register("categoriaId")}
+          >
+            {categorias.map((categoria, i) => {
+              return (
+                <option key={i} value={categoria.id}>
+                  {categoria.nombre}
+                </option>
+              );
+            })}
+          </select>
         </div>
         <div className="flex flex-row space-x-4">
           <div className="mb-4 w-full">
@@ -122,14 +164,14 @@ export default function CreateEditBook () {
           </div>
         </div>
         <div className="mb-4">
-            <label htmlFor="img" className="block mb-2">
-              IMAGEN
-            </label>
-            <input
-              type="file"
-              {...register("img")}
-              className="border border-gray-300 px-3 py-2 w-full rounded-md"
-            />
+          <label htmlFor="img" className="block mb-2">
+            IMAGEN
+          </label>
+          <input
+            type="file"
+            {...register("img")}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
         </div>
         <div className="mt-10">
           <button
@@ -140,7 +182,7 @@ export default function CreateEditBook () {
           </button>
 
           <Link
-            type="button" 
+            type="button"
             className="bg-custom-red rounded-md text-center p-2 block w-full"
             to="/admin/books"
           >
@@ -149,5 +191,5 @@ export default function CreateEditBook () {
         </div>
       </form>
     </div>
-  )
+  );
 }
