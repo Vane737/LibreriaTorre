@@ -15,9 +15,14 @@ export default function CreateEditCategory() {
   
   //handlers
   const handleProviderSubmit = (data) => {
+    const token = localStorage.getItem("token");
     if(id){
       //editar
-      api.put(`/usuario/categorias/${id}`, data)
+      api.put(`/categoria/${id}`, data, {
+        headers: {
+          "x-token": token
+        }
+      })
       .then((res) => {
         console.log(res);
         navigate("/admin/categorias");
@@ -27,8 +32,12 @@ export default function CreateEditCategory() {
       })
     }else{
       //crear
-      api.post("/usuario/categorias", data).
-      then((res) => {
+      api.post("/categoria", data, {
+        headers: {
+          "x-token": token
+        }
+      })
+      .then((res) => {
         console.log(res);
         navigate("/admin/categorias");
       })

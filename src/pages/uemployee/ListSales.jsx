@@ -82,7 +82,7 @@ export const ListSalesEmployee = () => {
           <p>Cargando</p>
         ) : (
           <div className='pt-5'>
-            <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} setEdit={false} />
+            <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} setEdit={false} setDelete = {false}/>
           </div>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}

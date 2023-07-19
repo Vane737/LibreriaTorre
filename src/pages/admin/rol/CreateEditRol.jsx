@@ -15,9 +15,14 @@ export default function CreateEditRol() {
   
   //handlers
   const handleProviderSubmit = (data) => {
+    const token = localStorage.getItem("x-token");
     if(id){
       //editar
-      api.put(`/usuario/roles/${id}`, data)
+      api.put(`/rol/${id}`, data, {
+        headers: {
+          "x-token": token,
+        },
+      })
       .then((res) => {
         console.log(res);
         navigate("/admin/roles");
@@ -27,8 +32,12 @@ export default function CreateEditRol() {
       })
     }else{
       //crear
-      api.post("/usuario/roles", data).
-      then((res) => {
+      api.post("/rol", data, {
+        headers: {
+          "x-token": token,
+        },
+      })
+      .then((res) => {
         console.log(res);
         navigate("/admin/roles");
       })
