@@ -17,9 +17,14 @@ export default function CreateEditProdiver() {
   
   //handlers
   const handleProviderSubmit = (data) => {
+    const token = localStorage.getItem("x-token");
     if(id){
       //editar
-      api.put(`proveedor/${id}`, data)
+      api.put(`proveedor/${id}`, data, {
+        headers: {
+          "x-token": token
+        }
+      })
       .then((res) => {
         console.log(res);
         navigate("/admin/providers");
@@ -29,7 +34,11 @@ export default function CreateEditProdiver() {
       })
     }else{
       //crear
-      api.post("proveedor", data).
+      api.post("proveedor", data, {
+        headers: {
+          "x-token": token
+        }
+      }).
       then((res) => {
         console.log(res);
         navigate("/admin/providers");

@@ -55,7 +55,11 @@ export const ListBooks = () => {
   useEffect(() => {
     const deleteBook = async () => {
       if (isAccept && bookId) {
-        const {status } = await axios.delete(`/libro/${bookId}`);
+        const {status } = await axios.delete(`/libro/${bookId}`,{
+          headers: {
+            'x-token': localStorage.getItem('x-token'),
+          }
+        });
         if (status >= 400) return;
         window.location.reload();
       }

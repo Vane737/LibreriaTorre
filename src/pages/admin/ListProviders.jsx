@@ -52,7 +52,11 @@ export const ListProviders = () => {
   useEffect(() => {
     const deleteProvider = async () => {
       if (isAccept && providerId) {
-        const { data, status } = await api.delete(`/proveedor/${providerId}`);
+        const { data, status } = await api.delete(`/proveedor/${providerId}`,{
+          headers: {
+            'x-token': localStorage.getItem('x-token'),
+          }
+        });
         if (status >= 400) return;
         console.log(data);
         window.location.reload();

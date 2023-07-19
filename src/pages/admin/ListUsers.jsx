@@ -47,7 +47,11 @@ export const ListUsers = () => {
   useEffect(() => {
     const deleteUser = async () => {
       if (isAccept && userId) {
-        const { data, status } = await api.delete(`/usuario/${userId}`);
+        const { data, status } = await api.delete(`/usuario/${userId}`, {
+          headers: {
+            'x-token': localStorage.getItem('x-token'),
+          }
+        });
         if (status >= 400) return;
         console.log(data);
         window.location.reload();

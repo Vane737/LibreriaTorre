@@ -106,7 +106,7 @@ export const ListRoles = () => {
         {loading ? (
           <p>Cargando....</p>
         ) : (
-        <ListUserRows head={head} body={listData.roles} getId={handleClickOption} setEdit={true} setSee={false}/>
+        <ListUserRows head={head} body={listData.roles} getId={handleClickOption} setEdit={false} setSee={false}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>

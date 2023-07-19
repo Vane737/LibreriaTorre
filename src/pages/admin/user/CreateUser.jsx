@@ -26,13 +26,19 @@ export default function CreateUser(){
       .catch((err) => {
         console.log(err);
       });
-  }, [roles]);
+  }, []);
 
   //handlers
   const handleBookSubmit = (data) => {
+    const token = localStorage.getItem("x-token");
+
     if(id){
       //editar
-      api.put(`usuario/${id}`, data)
+      api.put(`usuario/${id}`, data, {
+        headers: {
+          "x-token": token
+        }
+      })
       .then((res) => {
         console.log(res);
         navigate("/admin/users");
@@ -42,7 +48,11 @@ export default function CreateUser(){
       })
     }else{
       //crear
-      api.post("usuario", data).
+      api.post("usuario", data, {
+        headers: {
+          "x-token": token
+        }
+      }).
       then((res) => {
         console.log(res);
         navigate("/admin/users");
