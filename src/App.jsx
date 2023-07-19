@@ -290,7 +290,7 @@ function App() {
         },
         {
           path: "client",
-          element: <SideBarMenu/>,
+          element: <SideBarMenu redirecTo='client'/>,
           children: [
             {
               path: "/client",
@@ -308,7 +308,7 @@ function App() {
         },
         {
           path: "provider",
-          element: <SideBarMenu/>,
+          element: <SideBarMenu redirecTo='provider'/>,
           children: [
             {
               path: "/provider",

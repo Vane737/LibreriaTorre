@@ -9,7 +9,7 @@ import { LogoutModal } from '../utils';
 
 import {SideBarOptions as Admin } from "./SideBarOptions";
 import {SideBarOptionsEmployee as Employee } from "./SideBarOptionsEmployee";
-import {SideBarOptionsClient as Client } from "./SideBarOptionsClient";
+import {SideBarOptionsClient as Client} from './SideBarOptionsClient';        
 import {SideBarOptionsProvider as Provider } from "./SideBarOptionsProvider";
 import api from '../../API/axios';
 
