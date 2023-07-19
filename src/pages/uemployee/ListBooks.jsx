@@ -7,7 +7,7 @@ import { useState , useEffect} from 'react';
 import axios from '../../API/axios';
 
 
-export const ListBooks = () => {
+export const ListBooksEmployee = () => {
   const navigate = useNavigate();
   const {listData,loading, status} = useListDatas('/libro')
   const [isOpen, setIsOpen] = useState(false);
@@ -21,6 +21,7 @@ export const ListBooks = () => {
     'precio',
     'categoria',
     'editorial',
+    'cantidad'
    ]
   const textBorrar = 'Estas seguro de Eliminar el libro?'
   const handleClickOption = ({id , option})=>{
@@ -61,22 +62,18 @@ export const ListBooks = () => {
     deleteBook();
   }, [isAccept, bookId]);
 
-  const handleClickCreate = ()=>{
-    navigate('/employee/book/create');
-  }
   return (
     <section className='w-full p-5'>
       <div className='mt-5 p-5 w-full h-screen'>
         <div className='flex justify-between pr-4 py-3'>
             <h1 className="text-2xl font-bold">Libros</h1>
-            <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
-            onClick={handleClickCreate}>Añadir Nuevo Libro</button>
+            
         </div>
         <hr/>
         {
           loading 
           ?<p>Cargando</p>
-          :<ListUserRows head={head} body={listData.usuarios} getId={handleClickOption}/>
+          :<ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} setDelete={false}/>
         }
         {
           isOpen && <MyModal Text={textBorrar} estados={closeModal} />

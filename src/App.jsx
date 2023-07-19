@@ -45,6 +45,8 @@ import { CreateSaleEmployee } from './pages/uemployee/sales/CreateSale'
 import { ReadSaleEmployee } from './pages/uemployee/sales/ReadSale'
 import { ListBooksProvider } from './pages/uprovider/ListBooks'
 import { ListBooksClient } from './pages/uclient/ListBookss'
+import { ReadBookEmployee } from './pages/uemployee/book/ReadBook'
+import { ListBooksEmployee } from './pages/uemployee/ListBooks'
 
 
 function App() {
@@ -248,7 +250,20 @@ function App() {
             },
             {
               path: "books",
-              element: <ListBooks/>
+              element: <ListBooksEmployee/>
+            },
+            {
+              path: 'book',
+              children: [
+                {
+                  path:'/employee/book',
+                  element:<Navigate to='/employee'/>
+                },
+                {
+                  path: 'read/:id',
+                  element: <ReadBookEmployee/>
+                },
+              ]
             },
             {
               path: 'sales',
