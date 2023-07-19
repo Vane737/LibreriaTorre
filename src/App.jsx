@@ -40,6 +40,11 @@ import { ListCategories } from './pages/admin/ListCategories'
 import { ListRoles } from './pages/admin/ListRoles'
 import CreateEditRol from './pages/admin/rol/CreateEditRol'
 import CreateEditCategory from './pages/admin/categoria/CreateEditCategory'
+import { ListSalesEmployee } from './pages/uemployee/ListSales'
+import { CreateSaleEmployee } from './pages/uemployee/sales/CreateSale'
+import { ReadSaleEmployee } from './pages/uemployee/sales/ReadSale'
+import { ListBooksProvider } from './pages/uprovider/ListBooks'
+import { ListBooksClient } from './pages/uclient/ListBookss'
 
 
 function App() {
@@ -247,7 +252,7 @@ function App() {
             },
             {
               path: 'sales',
-              element: <ListSales/>, 
+              element: <ListSalesEmployee/>, 
             },
             {
               path: 'sale',
@@ -258,44 +263,44 @@ function App() {
                 },
                 {
                   path: 'create',
-                  element: <CreateSale/>
+                  element: <CreateSaleEmployee/>
                 },
                 {
                   path: 'read/:id',
-                  element: <ReadSale/>
+                  element: <ReadSaleEmployee/>
                 },
               ]
             },
           ]
         },
-        // {
-        //   path: "client",
-        //   element: <SideBarMenu/>,
-        //   children: [
-        //     {
-        //       path: "/client",
-        //       element: <Navigate to="/client/home" />
-        //     },
-        //     {
-        //       path: "books",
-        //       element: <ListBookss/>
-        //     },
-        //   ]
-        // },
-        // {
-        //   path: "provider",
-        //   element: <SideBarMenu/>,
-        //   children: [
-        //     {
-        //       path: "/provider",
-        //       element: <Navigate to="/provider/home" />
-        //     },
-        //     {
-        //       path: "books",
-        //       element: <ListBooks/>
-        //     },
-        //   ]
-        // },
+        {
+          path: "client",
+          element: <SideBarMenu/>,
+          children: [
+            {
+              path: "/client",
+              element: <Navigate to="/client/home" />
+            },
+            {
+              path: "books",
+              element: <ListBooksClient/>
+            },
+          ]
+        },
+        {
+          path: "provider",
+          element: <SideBarMenu/>,
+          children: [
+            {
+              path: "/provider",
+              element: <Navigate to="/provider/home" />
+            },
+            {
+              path: "books",
+              element: <ListBooksProvider/>
+            },
+          ]
+        },
       ]
     }
   ])

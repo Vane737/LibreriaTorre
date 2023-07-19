@@ -7,7 +7,7 @@ import { useReactToPrint } from "react-to-print";
 
 
   
-  export const ReadSale = () => {
+  export const ReadSaleEmployee = () => {
     const { id } = useParams();
     const head = ['Titulo', 'Id', 'Cantidad', 'Precio Unitario', 'Descuento', 'Precio Total'];
     const [notaVenta, setNotaVenta] = useState({});

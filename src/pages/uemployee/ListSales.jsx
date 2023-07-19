@@ -6,7 +6,7 @@ import api from '../../API/axios';
 import { useEffect, useState } from 'react';
 
 // const response = await fetch(`API_ENDPOINT/ventas?limit=${limit}&offset=${offset}`);
-export const ListSales = () => {
+export const ListSalesEmployee = () => {
   const navigate = useNavigate();
   const { listData, loading } = useListDatas('/venta');
   const head = ['id', 'fecha', 'hora', 'total', 'tipo pago', 'cliente', 'vendedor'];

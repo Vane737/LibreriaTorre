@@ -7,7 +7,7 @@ import { useState , useEffect} from 'react';
 import axios from '../../API/axios';
 
 
-export const ListBooks = () => {
+export const ListBooksProvider = () => {
   const navigate = useNavigate();
   const {listData,loading, status} = useListDatas('/libro')
   const [isOpen, setIsOpen] = useState(false);
@@ -59,7 +59,7 @@ export const ListBooks = () => {
       }
     };
     deleteBook();
-  }, [isAccept, setBookId]);
+  }, [isAccept, bookId]);
 
   const handleClickCreate = ()=>{
     navigate('/admin/book/create');

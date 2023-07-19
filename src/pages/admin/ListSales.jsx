@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 // const response = await fetch(`API_ENDPOINT/ventas?limit=${limit}&offset=${offset}`);
 export const ListSales = () => {
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/venta?limit=5');
+  const { listData, loading } = useListDatas('/venta');
   const head = ['id', 'fecha', 'hora', 'total', 'tipo pago', 'cliente', 'vendedor'];
   const [isAccept, setIsAccept] = useState(false);
   const [isOpen, setIsOpen] = useState(false);

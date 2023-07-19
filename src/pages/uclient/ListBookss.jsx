@@ -2,7 +2,7 @@ import {useListDatas} from '../../hook'
 import { CardBook } from '../../components/CardBook';
 
 
-export const ListBookss = () => {
+export const ListBooksClient = () => {
   const {listData,loading} = useListDatas('/libro')
   
 
