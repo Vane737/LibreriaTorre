@@ -8,8 +8,10 @@ import { useState, useEffect } from 'react';
 import { LogoutModal } from '../utils';
 
 import {SideBarOptions as Admin } from "./SideBarOptions";
+import {SideBarOptionsEmployee as Employee } from "./SideBarOptionsEmployee";
+import api from '../../API/axios';
 
-export const SideBarMenu = () => {
+export const SideBarMenu = ({ redirecTo = 'admin' }) => {
 
   const [selected, setSelected] = useState('');
   const location = useLocation();
@@ -18,6 +20,26 @@ export const SideBarMenu = () => {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      const fetchUser = async () => {
+      try {
+          const token = localStorage.getItem("x-token");
+          const response = await api.get('/user/token', {
+              headers: {
+                  "x-token": token
+              }
+          });
+          // console.log(response);
+          setUser(response.data.user);
+      } catch (error) {
+          console.error(error);
+      }
+      };
+      fetchUser();
+  }, []);
 
   const handleRute = () => {
       setSelected(location.pathname);
@@ -36,10 +58,15 @@ export const SideBarMenu = () => {
       navigate('/');
   }
 
-
   const switchOptions = (rol, selected) => {
       switch (rol) {
           case 'admin':
+              return <Admin selected={selected} />
+          case 'client':
+              return <Admin selected={selected} />
+          case 'employee':
+              return <Employee selected={selected} />
+          case 'provider':
               return <Admin selected={selected} />
           default:
               break;
@@ -58,7 +85,7 @@ export const SideBarMenu = () => {
                   <div>
                       <nav>
                           <ul>
-                              {switchOptions('admin', selected)}
+                              {switchOptions(redirecTo, selected)}
                           </ul>
                       </nav>
                   </div>

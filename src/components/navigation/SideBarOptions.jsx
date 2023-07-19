@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
+// import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+// import api from '../../API/axios';
 
 // import {
 //     AiOutlineUser,
@@ -16,6 +18,27 @@ import { Link } from 'react-router-dom';
 // } from "react-icons/Bs";
 
 export const SideBarOptions = ({ selected }) => {
+
+    // const [user, setUser] = useState(null);
+
+    // useEffect(() => {
+    //     const fetchUser = async () => {
+    //     try {
+    //         const token = localStorage.getItem("x-token");
+    //         const response = await api.get('/user/token', {
+    //             headers: {
+    //                 "x-token": token
+    //             }
+    //         });
+    //         // console.log(response);
+    //         setUser(response.data.user);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    //     };
+    //     fetchUser();
+    // }, []);
+
     return (
         <>
             <li className="p-4">

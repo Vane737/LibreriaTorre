@@ -31,7 +31,7 @@ import { ReadProdiver } from './pages/admin/providerr/ReadProvider';
 import { ReadSale } from './pages/admin/sales/ReadSale'
 import { CreateShopping } from './pages/admin/shoppingg/CreateShopping'
 import { ReadShopping } from './pages/admin/shoppingg/ReadShopping'
-import { ListBookss } from './pages/uclient/ListBookss'
+// import { ListBookss } from './pages/uclient/ListBookss'
 import CreateEditBook from './pages/admin/book/CreateEditBook'
 import EditUser from './pages/admin/user/EditUser'
 import CreateUser from './pages/admin/user/CreateUser'
@@ -67,10 +67,6 @@ function App() {
             {
               path: "home",
               element: <StarPage/>
-            },
-            {
-              path: "client",
-              element: <ListBookss/>
             },
             {
               path: "users",
@@ -233,6 +229,73 @@ function App() {
             }
           ]
         },
+        {
+          path: "employee",
+          element: <SideBarMenu redirecTo='employee'/>,
+          children: [
+            {
+              path: "/employee",
+              element: <Navigate to="/employee/home" />
+            },
+            {
+              path: "home",
+              element: <StarPage/>
+            },
+            {
+              path: "books",
+              element: <ListBooks/>
+            },
+            {
+              path: 'sales',
+              element: <ListSales/>, 
+            },
+            {
+              path: 'sale',
+              children: [
+                {
+                  path:'/employee/sale',
+                  element:<Navigate to='/employee'/>
+                },
+                {
+                  path: 'create',
+                  element: <CreateSale/>
+                },
+                {
+                  path: 'read/:id',
+                  element: <ReadSale/>
+                },
+              ]
+            },
+          ]
+        },
+        // {
+        //   path: "client",
+        //   element: <SideBarMenu/>,
+        //   children: [
+        //     {
+        //       path: "/client",
+        //       element: <Navigate to="/client/home" />
+        //     },
+        //     {
+        //       path: "books",
+        //       element: <ListBookss/>
+        //     },
+        //   ]
+        // },
+        // {
+        //   path: "provider",
+        //   element: <SideBarMenu/>,
+        //   children: [
+        //     {
+        //       path: "/provider",
+        //       element: <Navigate to="/provider/home" />
+        //     },
+        //     {
+        //       path: "books",
+        //       element: <ListBooks/>
+        //     },
+        //   ]
+        // },
       ]
     }
   ])

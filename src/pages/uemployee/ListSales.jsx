@@ -20,9 +20,9 @@ export const ListSales = () => {
       case 'borrar':
         return handleDeleteSale(id);
       case 'vista':
-        return navigate(`/admin/sale/read/${id}`);
+        return navigate(`/employee/sale/read/${id}`);
       case 'editar':
-        return navigate(`/admin/sale/edit/${id}`);
+        return navigate(`/employee/sale/edit/${id}`);
       default:
         break;
     }
@@ -66,7 +66,7 @@ export const ListSales = () => {
   }, [isAccept, saleId]);
 
   const handleClickCreate = ()=>{
-    navigate('/admin/sale/create');
+    navigate('/employee/sale/create');
   }
 
   

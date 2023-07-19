@@ -29,9 +29,9 @@ export const ListBooks = () => {
       case 'borrar':
         return handleDeleteBook(id);
       case 'vista':
-        return navigate(`/admin/book/read/${id}`)
+        return navigate(`/employee/book/read/${id}`)
       case 'editar':
-        return navigate(`/admin/book/edit/${id}`)
+        return navigate(`/employee/book/edit/${id}`)
       default:
         break;
     }
@@ -59,10 +59,10 @@ export const ListBooks = () => {
       }
     };
     deleteBook();
-  }, [isAccept, setBookId]);
+  }, [isAccept, bookId]);
 
   const handleClickCreate = ()=>{
-    navigate('/admin/book/create');
+    navigate('/employee/book/create');
   }
   return (
     <section className='w-full p-5'>
