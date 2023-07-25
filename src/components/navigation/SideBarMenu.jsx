@@ -13,6 +13,7 @@ import {SideBarOptionsClient as Client} from './SideBarOptionsClient';
 import {SideBarOptionsProvider as Provider } from "./SideBarOptionsProvider";
 import api from '../../API/axios';
 
+// eslint-disable-next-line react/prop-types
 export const SideBarMenu = ({ redirecTo = 'admin' }) => {
 
   const [selected, setSelected] = useState('');
