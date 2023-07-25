@@ -12,6 +12,8 @@ export const LoginForm = () => {
     email: '',
     password: ''
   }
+
+  let usuario = null;
   //datos para el formulario
   const fields = [
     { name: 'email', label: 'Email', type: 'email' },
@@ -19,9 +21,6 @@ export const LoginForm = () => {
   ];      
   const button = 'Iniciar Sesion'
   
-  //obtener los datos del formulario
-  const [user, setUser] = useState(null);
-
   const handleUser = () => {
       const fetchUser = async () => {
       try {
@@ -30,10 +29,23 @@ export const LoginForm = () => {
               headers: {
                   "x-token": token
               }
+          })
+          .then((response)=>{
+            usuario = response.data.usuario;
+
+            switch (usuario.role.nombre) {
+              case 'Administrador':
+                  return navigate('/admin/home')
+              case 'Empleado':
+                  return navigate('/employee/home')
+              case 'Cliente':
+                  return navigate('/client/home') 
+              case 'Proveedor':
+                  return navigate('/provider/home')
+              default:
+                  break;
+            }
           });
-          // console.log(response);
-          // console.log(response.data.usuario);
-          setUser(response.data.usuario);
       } catch (error) {
           console.error(error);
       }
@@ -46,18 +58,6 @@ export const LoginForm = () => {
       const {data} = await axios.post('/auth/login', {correo: email,password}); 
       localStorage.setItem('x-token', data.token);
       handleUser();
-      switch (user.role.nombre) {
-        case 'Administrador':
-            return navigate('/admin/home')
-        case 'Empleado':
-            return navigate('/employee/home')
-        case 'Cliente':
-            return navigate('/client/home') 
-        case 'Proveedor':
-            return navigate('/provider/home')
-        default:
-            break;
-    }
       // navigate('/admin/users')
     } catch (error) {
       console.log(error);
