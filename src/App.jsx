@@ -47,6 +47,7 @@ import { ListBooksProvider } from './pages/uprovider/ListBooks'
 import { ListBooksClient } from './pages/uclient/ListBookss'
 import { ReadBookEmployee } from './pages/uemployee/book/ReadBook'
 import { ListBooksEmployee } from './pages/uemployee/ListBooks'
+import { ListBitacora } from './pages/admin/ListBitacora'
 
 
 function App() {
@@ -78,6 +79,10 @@ function App() {
             {
               path: "users",
               element: <ListUsers/>,
+            },
+            {
+              path: "bitacora",
+              element: <ListBitacora/>,
             },
             {
               path: "categories",
@@ -233,7 +238,7 @@ function App() {
                   element: <CreateEditCategory/>
                 },
               ]
-            }
+            },
           ]
         },
         {

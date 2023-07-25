@@ -1,6 +1,8 @@
 
 export const StarPage = () => {
   return (
-    <div>StarPage</div>
+    <div className="text-center font-bold">
+      <h1>BIENVENIDO</h1>
+    </div>
   )
 }

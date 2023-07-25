@@ -94,6 +94,12 @@ export const SideBarOptions = ({ selected }) => {
                     <span className="text-black">CATEGORIA</span>
                 </Link>
             </li>
+            <li className="p-4 pt-0">
+                <Link to='/admin/bitacora' className={`flex text-xp py-2 px-4 rounded ${selected === "/admin/bitacora" ? 'bg-custom-celeste' : 'bg-white w-full'} `}>
+                {/* <AiOutlineUser className="mr-4 mb-0 mt-1 text-black" /> */}
+                    <span className="text-black">BITACORA</span>
+                </Link>
+            </li>
         </>
     )
 }
