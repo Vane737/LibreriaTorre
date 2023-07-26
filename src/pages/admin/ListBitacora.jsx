@@ -9,17 +9,15 @@ export const ListBitacora = () => {
 
   return (
     <section className='w-full p-5'>
-      <div className='w-full'>
-        <div className='flex justify-between pr-4 py-5'>
-            <h1 className="text-2xl font-bold">Bitacora</h1>
-        </div>
-      </div>
+      <div className='mt-5 p-5 w-full'>
+        <h1 className="text-2xl font-bold py-3">Bitacora</h1>
+
       {
         loading 
         ?
           <p>Cargando....</p>
         :
-          <table className='text-center table-fixed w-80 drop-shadow-md my-5'>
+          <table className='table-fixed w-full'>
             <thead className='bg-custom-celeste h-10'>
               <tr className='pt-3 pb-3'>
                 {
@@ -54,6 +52,7 @@ export const ListBitacora = () => {
             </tbody>
           </table>
       }
+      </div>
     </section>
   )
 };
