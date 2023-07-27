@@ -18,6 +18,8 @@ export const FormDynamicCompra = () => {
   const [copiaDetalles, setCopiaDetalles] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0.0);
 
+
+
   // Aqui se añaden los detalles de una compra y se cacula su precio 
   const handleClickAdd = () => {
     const total = cantidad * price;
@@ -68,9 +70,13 @@ export const FormDynamicCompra = () => {
       });
   };
 
-  const handleRemoveDetalle = (id) => {
-    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+  const handleRemoveDetalle = (id, preciototaldetalle) => {
+    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id );
+    const newCopiaDetalles = copiaDetalles.filter((copiaDetalle) => copiaDetalle.libroId !== id );
+
     setArrDetalle(newDataList);
+    setCopiaDetalles(newCopiaDetalles);
+    setPrecioTotal(precioTotal - preciototaldetalle);
   };
 
   return (
@@ -151,7 +157,7 @@ export const FormDynamicCompra = () => {
                 <th>{detalle.precio}</th>
                 <th>{detalle.precioTotal}</th>
                 <th className="p-2">
-                  <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle(detalle.id)}>
+                  <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle(detalle.id, detalle.precioTotal)}>
                     Eliminar
                   </button>
                 </th>
