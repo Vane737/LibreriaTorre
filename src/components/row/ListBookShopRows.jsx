@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 export const ListBookShopRows = ({ head=[], body =[] }) => {
   //obtengo el id y la opcion que se selecciono (borrar,mostrar y editar)
   return (
-    <table className='text-center table-fixed w-80 drop-shadow-md'>
+    <table className='text-center table-fixed drop-shadow-md w-full'>
       <thead className='bg-custom-celeste h-10'>
         <tr className='pt-3 pb-3'>
           {
