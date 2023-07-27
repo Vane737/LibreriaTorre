@@ -12,17 +12,19 @@ export const FormDynamicCompra = () => {
   const [title, setTitle] = useState("");
   const [book, setBook] = useState({});
   const [arrDetalle, setArrDetalle] = useState([]);
-  const [descuento, setDescuento] = useState(0.0);
+  const [price, setPrice] = useState(0.0);
   const [cantidad, setCantidad] = useState(0);
   const [cliente, setCliente] = useState("");
   const [copiaDetalles, setCopiaDetalles] = useState([]);
   const [precioTotal, setPrecioTotal] = useState(0.0);
 
+
+
   // Aqui se añaden los detalles de una compra y se cacula su precio 
   const handleClickAdd = () => {
-    const total = cantidad * book.precio - descuento;
-    const detalle = { ...book, cantidad, descuento, title, precioTotal: total };
-    const copiaDetalle = { libroId: book.id, cantidad: cantidad, precio: book.precio };
+    const total = cantidad * price;
+    const detalle = { ...book, cantidad, precio: price, title, precioTotal: total }; // habia Descuento
+    const copiaDetalle = { libroId: book.id, cantidad: cantidad, precio: price};
     setArrDetalle([...arrDetalle, detalle]);
     setCopiaDetalles([...copiaDetalles, copiaDetalle]);
     setPrecioTotal(precioTotal + total);
@@ -33,10 +35,10 @@ export const FormDynamicCompra = () => {
       socket.emit("fetchBook", title);
     }
   };
-
+// Manejo de socket - escucha 
   useEffect(() => {
     socket.on("bookData", (data) => {
-      const newBook = { ...book, id: data.id, precio: data.precio };
+      const newBook = { ...book, id: data.id };
       setBook(newBook);
     });
   }, [book]);
@@ -68,9 +70,13 @@ export const FormDynamicCompra = () => {
       });
   };
 
-  const handleRemoveDetalle = (id) => {
-    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+  const handleRemoveDetalle = (id, preciototaldetalle) => {
+    const newDataList = arrDetalle.filter((detalle) => detalle.id !== id );
+    const newCopiaDetalles = copiaDetalles.filter((copiaDetalle) => copiaDetalle.libroId !== id );
+
     setArrDetalle(newDataList);
+    setCopiaDetalles(newCopiaDetalles);
+    setPrecioTotal(precioTotal - preciototaldetalle);
   };
 
   return (
@@ -82,7 +88,6 @@ export const FormDynamicCompra = () => {
             <th>Id</th>
             <th> Cantidad</th>
             <th>Precio</th>
-            <th>Descuento</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -101,7 +106,7 @@ export const FormDynamicCompra = () => {
             <th className="font-normal text-lg">
               <p id="libroId">{book.id}</p>
             </th>
-            <th className="flex items-center justify-center pt-3 pb-3">
+            <th className=" items-center justify-center pt-3 pb-3">
               <input
                 type="number"
                 name="cantidad"
@@ -109,15 +114,15 @@ export const FormDynamicCompra = () => {
                 onChange={(e) => setCantidad(e.target.value)}
               />
             </th>
-            <th className="font-normal text-lg">
+            {/* <th className="font-normal text-lg">
               <p id="precio">{book.precio}</p>
-            </th>
-            <th className="flex items-center justify-center pt-3 pb-3">
+            </th> */}
+            <th className="items-center justify-center pt-3 pb-3">
               <input
                 type="number"
-                name="descuento"
+                name="price"
                 className="rounded-md w-1/3 border-2 border-solid border-black font-normal text-lg pl-2"
-                onChange={(e) => setDescuento(e.target.value)}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </th>
             <th>
@@ -152,7 +157,7 @@ export const FormDynamicCompra = () => {
                 <th>{detalle.precio}</th>
                 <th>{detalle.precioTotal}</th>
                 <th className="p-2">
-                  <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle(detalle.id)}>
+                  <button className="bg-custom-red rounded-md p-2" onClick={() => handleRemoveDetalle(detalle.id, detalle.precioTotal)}>
                     Eliminar
                   </button>
                 </th>

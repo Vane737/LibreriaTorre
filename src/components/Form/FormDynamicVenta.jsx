@@ -81,9 +81,13 @@ export const FormDynamicVenta = () => {
       });
   };
 
-  const handleRemoveDetalle = (id) => {
+  const handleRemoveDetalle = (id, preciototaldetalle) => {
     const newDataList = arrDetalle.filter((detalle) => detalle.id !== id);
+    const newCopiaDetalles = copiaDetalles.filter((copiaDetalle) => copiaDetalle.libroId !== id );
+   
     setArrDetalle(newDataList);
+    setCopiaDetalles(newCopiaDetalles);
+    setPrecioTotal(precioTotal - preciototaldetalle);
   };
 
   return (
@@ -169,7 +173,7 @@ export const FormDynamicVenta = () => {
                 <th>{detalle.precioTotal}</th>
                 <th className="p-2">
                   <button className="bg-custom-red rounded-md p-2"
-                  onClick={() => handleRemoveDetalle(detalle.id)}>
+                  onClick={() => handleRemoveDetalle(detalle.id, detalle.precioTotal)}>
                     Eliminar
                   </button>
                 </th>
