@@ -29,13 +29,13 @@ export const FormDynamicCompra = () => {
     setCopiaDetalles([...copiaDetalles, copiaDetalle]);
     setPrecioTotal(precioTotal + total);
   };
-
+// Manejo de socket - emite evento
   const handleSubmit = (e) => {
     if (e.key == "Enter") {
       socket.emit("fetchBook", title);
     }
   };
-// Manejo de socket - escucha 
+// Manejo de socket - escucha evento
   useEffect(() => {
     socket.on("bookData", (data) => {
       const newBook = { ...book, id: data.id };
