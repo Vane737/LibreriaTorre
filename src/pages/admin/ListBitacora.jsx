@@ -1,9 +1,29 @@
+import Pagination from "../../components/utils/Pagination";
 import { useListDatas } from "../../hook";
 
 
 export const ListBitacora = () => {
 
+
+  // Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
+// parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
+
+/* let cantElement = 12;
+let cantElementXPage = 6;
+
+let cantPages = (cantElement, cantElementXPage) => {
+  let cantPage = Math.trunc(cantElement / cantElementXPage);
+  if (cantElement % cantElementXPage === 0) {
+      return cantPage;
+  }
+  return ++cantPage;
+}
+ */
+
   const { listData, loading } = useListDatas('/bitacora?limit=5');
+
+
+  
   const head = ['Id','Actividad', 'Fecha', 'Hora', 'Usuario_ID'];
   console.log('listData', listData.bitacoras);
 
@@ -40,7 +60,7 @@ export const ListBitacora = () => {
                       <th>{b.usuarioId}</th>
                     </tr>
                   :
-                  <tr className= 'py-3 bg-white pt-2 pb-2 text-center' key={i}>
+                  <tr className= 'py-3 bg-white  text-center' key={i}>
                       <th className='py-2'>{b.id}</th>
                       <th className='py-2'>{b.actividad}</th>
                       <th>{b.fecha}</th>
@@ -52,6 +72,7 @@ export const ListBitacora = () => {
             </tbody>
           </table>
       }
+      <Pagination />
       </div>
     </section>
   )

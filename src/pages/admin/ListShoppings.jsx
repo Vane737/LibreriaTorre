@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
 import api from "../../API/axios";
+import Pagination from "../../components/utils/Pagination";
 
 export const ListShoppings = () => {
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/compra');
+  const 
+  const { listData, loading, cantReg } = useListDatas(̣̣);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
@@ -45,6 +47,14 @@ export const ListShoppings = () => {
     }
   };
 
+    // Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
+// parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
+
+// let cantElement = 12;
+// let cantElementXPage = 6;
+
+
+
   useEffect(() => {
     const deleteShopping = async () => {
       const token = localStorage.getItem("x-token");
@@ -81,7 +91,9 @@ export const ListShoppings = () => {
         <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
+        <Pagination  cantElement={ cantReg }/>
       </div>
+
     </div>
   );
 }
