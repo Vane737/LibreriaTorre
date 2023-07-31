@@ -7,13 +7,15 @@ export default function CreateEditBook() {
   let { id } = useParams();
   const navigate = useNavigate();
   const [categorias, setCategorias] = useState([]);
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [date, setDate] = useState("");
+  const [categoriaId, setCategoriaId] = useState("");
+  const [authors, setAuthors] = useState([]);
+  const [authorName, setAuthorName] = useState("");
+  const [editorial, setEditorial] = useState("");
+  const [image, setImage] = useState();
 
-  //form
-  const {
-    register,
-    handleSubmit,
-    // reset
-  } = useForm();
 
   useEffect(() => {
     api
@@ -27,7 +29,17 @@ export default function CreateEditBook() {
   }, []);
 
   //handlers
-  const handleBookSubmit = (data) => {
+  const handleBookSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      titulo: title,
+      precio: parseInt(price),
+      fecha_publicacion: date,
+      categoriaId: parseInt(categoriaId),
+      editorial: editorial,
+      autores: authors,
+      img: image,
+    }
     const token = localStorage.getItem('x-token');
     console.log("data", data);
     if (id) {
@@ -44,20 +56,14 @@ export default function CreateEditBook() {
     } else {
       //crear
       const formData = new FormData();
-      formData.append("img", data.img[0]);
       for (let key in data) {
-        if (key !== "img" && key !== "autores") {
-          formData.append(key, data[key]);
-        }
+        formData.append(key, data[key]);
       }
-      // const autores = data.autores.split(",");
-      const autores = ["james", "jose"];
-      // formData.append("autores", JSON.stringify(autores));
-      formData.append("autores", autores);
 
       for (const entry of formData.entries()) {
         console.log(entry[0] + ": " + entry[1]);
       }
+      
 
       const camposArray = [...formData.entries()];
       const longitud = camposArray.length;
@@ -78,19 +84,29 @@ export default function CreateEditBook() {
     }
   };
 
+  //Handle add author
+  const handleAddAuthor = () => {
+    setAuthors([...authors, authorName]);
+    setAuthorName("");
+  }
+
+  const handleChangeImage = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   return (
     <div className="container mx-auto w-3/6">
       <h1 className="text-2xl font-bold text-center mb-4 w-full pt-5">
         {id ? "EDITAR LIBRO" : "REGISTRAR LIBRO"}
       </h1>
-      <form onSubmit={handleSubmit(handleBookSubmit)}>
+      <form onSubmit={handleBookSubmit}>
         <div className="mb-4">
           <label htmlFor="titulo" className="block mb-2 w-full">
             NOMBRE
           </label>
           <input
             type="text"
-            {...register("titulo")}
+            onChange={(e) => setTitle(e.target.value)}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
@@ -100,7 +116,7 @@ export default function CreateEditBook() {
           </label>
           <input
             type="text"
-            {...register("precio")}
+            onChange={(e) => setPrice(e.target.value)}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
@@ -110,21 +126,11 @@ export default function CreateEditBook() {
           </label>
           <input
             type="date"
-            {...register("fecha_publicacion")}
+            onChange={(e) => setDate(e.target.value)}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
         {/* <div className="mb-4">
-          <label htmlFor="categoria" className="block mb-2">
-            CATEGORIA
-          </label>
-          <input
-            type="text"
-            {...register("categoria")}
-            className="border border-gray-300 px-3 py-2 w-full rounded-md"
-          />
-        </div> */}
-        <div className="mb-4">
           <label htmlFor="direccion" className="block mb-2">
             CATEGORIA
           </label>
@@ -140,28 +146,37 @@ export default function CreateEditBook() {
               );
             })}
           </select>
+        </div> */}
+        <div className="mb-4">
+          <label htmlFor="fecha_publicacion" className="block mb-2">
+            CATEGORIA
+          </label>
+          <input
+            type="text"
+            onChange={(e) => setCategoriaId(e.target.value)}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
         </div>
-        <div className="flex flex-row space-x-4">
-          <div className="mb-4 w-full">
-            <label htmlFor="autores" className="block mb-2">
-              AUTOR
-            </label>
-            <input
-              type="text"
-              {...register("autores")}
-              className="border border-gray-300 px-3 py-2 rounded-md w-full"
-            />
-          </div>
-          <div className="mb-4 w-full">
-            <label htmlFor="editorial" className="block mb-2">
-              EDITORIAL
-            </label>
-            <input
-              type="text"
-              {...register("editorial")}
-              className="border border-gray-300 px-3 py-2 rounded-md w-full"
-            />
-          </div>
+        <div className="mb-4">
+          <label htmlFor="fecha_publicacion" className="block mb-2">
+            EDITORIAL
+          </label>
+          <input
+            type="text"
+            onChange={(e) => setEditorial(e.target.value)}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="categoria" className="block mb-2">
+            AUTOR
+          </label>
+          <input
+            type="text"
+            onChange={(e) => {setAuthorName(e.target.value)}}
+            className="border border-gray-300 px-3 py-2 w-full rounded-md"
+          />
+          <button onClick={handleAddAuthor}>Agregar autor</button>
         </div>
         <div className="mb-4">
           <label htmlFor="img" className="block mb-2">
@@ -169,10 +184,11 @@ export default function CreateEditBook() {
           </label>
           <input
             type="file"
-            {...register("img")}
+            onChange={handleChangeImage}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
+        
         <div className="mt-10">
           <button
             type="submit"
