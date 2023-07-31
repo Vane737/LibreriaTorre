@@ -8,8 +8,8 @@ import Pagination from "../../components/utils/Pagination";
 
 export const ListShoppings = () => {
   const navigate = useNavigate();
-  const 
-  const { listData, loading, cantReg } = useListDatas(̣̣);
+  const { listData, loading, regTotal } = useListDatas('/compra');
+  const { paginaActual, setPaginaActual } = useState(1);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
@@ -70,6 +70,10 @@ export const ListShoppings = () => {
       }
     };
 
+    const handlePageChange = (numeroPag) => {
+      setPaginaActual(numeroPag);
+    }
+
     deleteShopping();
   }, [isAccept, shoppingId]);
 
@@ -91,7 +95,7 @@ export const ListShoppings = () => {
         <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
-        <Pagination  cantElement={ cantReg }/>
+        <Pagination  pagActual= {paginaActual} regTotal ={ regTotal } onPageChange={handlePageChange}/>
       </div>
 
     </div>

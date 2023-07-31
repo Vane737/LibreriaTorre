@@ -2,40 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-const items = [
-  
-    {
-    id: 1,
-    title: "Back End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 2,
-    title: "Front End Developer",
-    department: "Engineering",
-    type: "Full-time",
-    location: "Remote",
-  },
-  {
-    id: 3,
-    title: "User Interface Designer",
-    department: "Design",
-    type: "Full-time",
-    location: "Remote",
-  },
-];
-
 // Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
 // parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
 
-/* let cantElement = 12;
-let cantElementXPage = 6;
+/* let pagActual = 12;
+let pagActualXPage = 6;
 
-let cantPages = (cantElement, cantElementXPage) => {
-  let cantPage = Math.trunc(cantElement / cantElementXPage);
-  if (cantElement % cantElementXPage === 0) {
+let cantPages = (pagActual, pagActualXPage) => {
+  let cantPage = Math.trunc(pagActual / pagActualXPage);
+  if (pagActual % pagActualXPage === 0) {
       return cantPage;
   }
   return ++cantPage;
@@ -44,39 +19,53 @@ let cantPages = (cantElement, cantElementXPage) => {
 
 
 
-export default function Pagination({ cantElement }) {
+// eslint-disable-next-line react/prop-types
+export default function Pagination({ pagActual, regTotal, onPageChange }) {
 
     // Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
     // parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
 
-// let cantElement = 12;
-// let cantElementXPage = 6;
+// let pagActual = 12;
+// let pagActualXPage = 6;
     const [cantPage, setCantPage] = useState(0);
 
 useEffect(() => {
-    cantPages(cantElement);
+    console.log(pagActual);
+    cantPages(pagActual);
 
   }, []);
 
     let cantPages = (pag) => {
     let cantPage = Math.trunc(pag / 6);
-    if (cantElement % 6 === 0) {
+    if (pagActual % 6 === 0) {
         setCantPage(cantPage);
     }
     setCantPage(++cantPage);
     }
 
-    let showPagination = (cantPage) => {
-        for (let i = 0; i < cantPage; i++) {
-            return (<a
-                href="#"
-                aria-current="page"
-                className="relative z-10 inline-flex items-center bg-custom-celeste px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                {i}
-              </a>);
-        }
-    }
+    const showPagination = (cantPage) => {
+      const pag = [];
+      for (let i = 1; i <= cantPage; i++) {
+        pag.push(
+          <a
+          key={i}
+          href="#"
+          aria-current="page"
+          className="relative z-10 inline-flex items-center bg-custom-celeste px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          >
+          {i}
+        </a>
+        );
+      }
+      return pag;
+    };
+    // let showPagination = (cantPage) => {
+    //     for (let i = 0; i <= cantPage; i++) {
+    //         return (
+
+    //         );
+    //     }
+    // }
 
 
     

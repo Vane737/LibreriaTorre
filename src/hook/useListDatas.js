@@ -5,7 +5,7 @@ export const useListDatas = (url = '') => {
   const [listData,setListData] = useState([]);
   const [loading,setLoading] = useState(true);
   const [status, setStatus] = useState(0);
-  const [cantReg, setCantReg] = useState(0);
+  const [regTotal, setRegTotal] = useState(0);
 
   const getData = async()=>{
     const {data, status} = await axios.get(url);
@@ -13,7 +13,7 @@ export const useListDatas = (url = '') => {
     setListData(data);
     setStatus(status);
     console.log('Este es el total de registros', data.total);
-//    setCantReg(data.total);
+   setRegTotal(data.total);
   }
   useEffect(() => {
     getData();
@@ -22,6 +22,6 @@ export const useListDatas = (url = '') => {
     listData,
     status,
     loading,
-    cantReg
+    regTotal
   }
 }
