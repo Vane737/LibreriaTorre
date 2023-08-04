@@ -8,8 +8,8 @@ import Pagination from "../../components/utils/Pagination";
 
 export const ListShoppings = () => {
   const navigate = useNavigate();
-  const { listData, loading, regTotal } = useListDatas('/compra');
-  const { paginaActual, setPaginaActual } = useState(1);
+  const [ offset, setOffset ] = useState(0);
+  const { listData, loading, regTotal } = useListDatas(`/compra?offset=${offset}&limit=6`, offset);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
@@ -47,14 +47,6 @@ export const ListShoppings = () => {
     }
   };
 
-    // Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
-// parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
-
-// let cantElement = 12;
-// let cantElementXPage = 6;
-
-
-
   useEffect(() => {
     const deleteShopping = async () => {
       const token = localStorage.getItem("x-token");
@@ -70,13 +62,13 @@ export const ListShoppings = () => {
       }
     };
 
-    const handlePageChange = (numeroPag) => {
-      setPaginaActual(numeroPag);
-    }
-
+    
     deleteShopping();
   }, [isAccept, shoppingId]);
-
+  
+  const handleOffsetChange = (numeroPag) => {
+    setOffset(numeroPag);
+  }
 
   const handleClickCreate = ()=>{
     navigate('/admin/shopping/create');
@@ -92,10 +84,12 @@ export const ListShoppings = () => {
         {loading ? (
           <p>Cargando...</p>
         ) : (
-        <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
+        <>
+          <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
+          <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange}/>
+        </>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
-        <Pagination  pagActual= {paginaActual} regTotal ={ regTotal } onPageChange={handlePageChange}/>
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from '../API/axios';
 
-export const useListDatas = (url = '') => {
+export const useListDatas = (url = '', offset) => {
   const [listData,setListData] = useState([]);
   const [loading,setLoading] = useState(true);
   const [status, setStatus] = useState(0);
@@ -12,12 +12,13 @@ export const useListDatas = (url = '') => {
     setLoading(false);
     setListData(data);
     setStatus(status);
-    console.log('Este es el total de registros', data.total);
    setRegTotal(data.total);
   }
   useEffect(() => {
-    getData();
-  }, [])
+    if (offset !== undefined) {
+      getData();
+    }
+  }, [offset])
   return {
     listData,
     status,
