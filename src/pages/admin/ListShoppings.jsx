@@ -8,13 +8,13 @@ import Pagination from "../../components/utils/Pagination";
 
 export const ListShoppings = () => {
   const navigate = useNavigate();
+  const regXPage = 6;
   const [ offset, setOffset ] = useState(0);
-  const { listData, loading, regTotal } = useListDatas(`/compra?offset=${offset}&limit=6`, offset);
+  const { listData, loading, regTotal } = useListDatas(`/compra?offset=${offset}&limit=${regXPage}`, offset);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
   const head = ['Id', 'Fecha', 'Hora', 'Total', 'Comprador','Vendedor'];
-
 
   const handleClickOption = ({ id, option }) => {
     switch (option) {
@@ -86,7 +86,7 @@ export const ListShoppings = () => {
         ) : (
         <>
           <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
-          <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange}/>
+          <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange} regXPage = {regXPage}/>
         </>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}

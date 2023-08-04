@@ -12,7 +12,7 @@ export const useListDatas = (url = '', offset) => {
     setLoading(false);
     setListData(data);
     setStatus(status);
-   setRegTotal(data.total);
+   setRegTotal(data.total? data.total : 15);
   }
   useEffect(() => {
     if (offset !== undefined) {

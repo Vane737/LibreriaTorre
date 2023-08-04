@@ -4,11 +4,14 @@ import { ListUserRows } from '../../components/row';
 import { MyModal } from '../../components/utils';
 import api from '../../API/axios';
 import { useEffect, useState } from 'react';
+import Pagination from '../../components/utils/Pagination';
 
 // const response = await fetch(`API_ENDPOINT/ventas?limit=${limit}&offset=${offset}`);
 export const ListSales = () => {
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/venta');
+  const regXPage = 6;
+  const [ offset, setOffset ] = useState(0);
+  const { listData, loading, regTotal } = useListDatas(`/venta?offset=${offset}&limit=${regXPage}`, offset);
   const head = ['id', 'fecha', 'hora', 'total', 'tipo pago', 'cliente', 'vendedor'];
   const [isAccept, setIsAccept] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -65,6 +68,10 @@ export const ListSales = () => {
     deleteSale();
   }, [isAccept, saleId]);
 
+  const handleOffsetChange = (numeroPag) => {
+    setOffset(numeroPag);
+  }
+
   const handleClickCreate = ()=>{
     navigate('/admin/sale/create');
   }
@@ -83,6 +90,7 @@ export const ListSales = () => {
         ) : (
           <div className='pt-5'>
             <ListUserRows head={head} body={listData.ventas} getId={handleClickOption} setEdit={false} />
+            <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange} regXPage = {regXPage}/>
           </div>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}

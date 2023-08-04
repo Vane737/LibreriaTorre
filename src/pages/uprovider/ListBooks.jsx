@@ -5,11 +5,14 @@ import {ListUserRows} from '../../components/row'
 import { useState , useEffect} from 'react';
 
 import axios from '../../API/axios';
+import Pagination from '../../components/utils/Pagination';
 
 
 export const ListBooksProvider = () => {
   const navigate = useNavigate();
-  const {listData,loading, status} = useListDatas('/libro')
+  const regXPage = 6;
+  const [ offset, setOffset ] = useState(0);
+  const {listData,loading, status, regTotal} = useListDatas(`/libro?offset=${offset}&limit=${regXPage}`, offset);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [bookId, setBookId] = useState(null);
@@ -62,6 +65,10 @@ export const ListBooksProvider = () => {
     deleteBook();
   }, [isAccept, bookId]);
 
+  const handleOffsetChange = (numeroPag) => {
+    setOffset(numeroPag);
+  }
+
   const handleClickCreate = ()=>{
     navigate('/admin/book/create');
   }
@@ -77,7 +84,11 @@ export const ListBooksProvider = () => {
         {
           loading 
           ?<p>Cargando</p>
-          :<ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} setDelete={false}/>
+          :
+          <>
+            <ListUserRows head={head} body={listData.usuarios} getId={handleClickOption} setDelete={false}/>
+            <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange} regXPage = {regXPage}/>
+          </>
         }
         {
           isOpen && <MyModal Text={textBorrar} estados={closeModal} />

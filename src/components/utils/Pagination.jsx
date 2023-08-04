@@ -1,25 +1,8 @@
-// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-
-
-// Funcion para calcular la cantidad de paginas en teniendo la cantidad de elementos por paginas
-// parametros de entrada la cantidad total de registros y la cantidad de regitros a mostrar (limit)
-
-/* let offset = 12;
-let offsetXPage = 6;
-
-let cantPages = (offset, offsetXPage) => {
-  let cantPage = Math.trunc(offset / offsetXPage);
-  if (offset % offsetXPage === 0) {
-      return cantPage;
-  }
-  return ++cantPage;
-}
- */
 
 // eslint-disable-next-line react/prop-types
-export default function Pagination({ offset, regTotal, onOffsetChange }) {
+export default function Pagination({ offset, regTotal, onOffsetChange, regXPage }) {
 
-  const totalPages = Math.ceil(regTotal / 6 );
+  const totalPages = Math.ceil(regTotal /regXPage);
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
 
@@ -35,9 +18,8 @@ export default function Pagination({ offset, regTotal, onOffsetChange }) {
               href="#"
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               disabled={offset === 0}
-              onClick={() => onOffsetChange(offset - 6)}
+              onClick={() => onOffsetChange(offset - regXPage)}
             >
-              {/* <span className="sr-only">Previous</span> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -59,8 +41,8 @@ export default function Pagination({ offset, regTotal, onOffsetChange }) {
                   key={page}
                   href="#"
                   aria-current="page"
-                  className={offset == ( page - 1 ) * 6 ? "relative z-10 inline-flex items-center bg-custom-celeste text-white px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" : "relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"}
-                  onClick={() => onOffsetChange((page - 1) * 6)}
+                  className={offset == ( page - 1 ) *regXPage? "relative z-10 inline-flex items-center bg-custom-celeste text-white px-4 py-2 text-sm font-semibold focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" : "relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"}
+                  onClick={() => onOffsetChange((page - 1) * regXPage)}
                 >
                   {page}
                 </button>
@@ -69,10 +51,9 @@ export default function Pagination({ offset, regTotal, onOffsetChange }) {
             <button
               href="#"
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-              onClick={() => onOffsetChange(offset + 6)}
-              disabled={offset + 6 >= regTotal}
+              onClick={() => onOffsetChange(offset + regXPage)}
+              disabled={offset +regXPage>= regTotal}
             >
-              {/* <span className="sr-only">Next</span> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

@@ -4,12 +4,15 @@ import { useListDatas } from "../../hook";
 import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
 import api from "../../API/axios";
+import Pagination from "../../components/utils/Pagination";
 
 
 export const ListProviders = () => {
 
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/proveedor');
+  const regXPage = 6;
+  const [ offset, setOffset ] = useState(0);
+  const { listData, loading, regTotal } = useListDatas(`/proveedor?offset=${offset}&limit=${regXPage}`, offset);
   const [isOpen, setIsOpen] = useState(false);
   const [providerId, setProviderId] = useState(null);
   const [isAccept, setIsAccept] = useState(false);
@@ -66,6 +69,10 @@ export const ListProviders = () => {
     deleteProvider();
   }, [isAccept, providerId]);
 
+  const handleOffsetChange = (numeroPag) => {
+    setOffset(numeroPag);
+  }
+
   const handleClickCreate = ()=>{
     navigate('/admin/provider/create');
   }
@@ -105,7 +112,10 @@ export const ListProviders = () => {
         {loading ? (
           <p>Cargando....</p>
         ) : (
-        <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption} setEdit={true}/>
+          <>
+            <ListUserRows head={head} body={listData.proveedores} getId={handleClickOption} setEdit={true}/>
+            <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange} regXPage = {regXPage}/>
+          </>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
