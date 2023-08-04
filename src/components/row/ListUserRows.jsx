@@ -41,7 +41,7 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit, setSee = true,
                 ))
               }
               <th>
-                <div className='flex flex-wrap items-center justify-around pt-2 pb-2'>
+                <div className='flex flex-wrap items-center justify-around'>
                 {
                   setDelete ?
                     <button className="rounded-md p-2 text-red-600" onClick={()=>onClickId(b, 'borrar')}>
@@ -84,7 +84,7 @@ export const ListUserRows = ({ head=[], body =[], getId, setEdit, setSee = true,
                 ))
               }
               <th>
-                <div className='flex flex-wrap items-center justify-around pt-2 pb-2'>
+                <div className='flex flex-wrap items-center justify-around'>
                   {
                     setDelete ? 
                     <button className="rounded-md p-2 text-red-600" onClick={()=>onClickId(b, 'borrar')}>

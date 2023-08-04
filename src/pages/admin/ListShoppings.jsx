@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { ListUserRows } from "../../components/row";
 import { MyModal } from "../../components/utils";
 import api from "../../API/axios";
+import Pagination from "../../components/utils/Pagination";
 
 export const ListShoppings = () => {
   const navigate = useNavigate();
-  const { listData, loading } = useListDatas('/compra');
+  const [ offset, setOffset ] = useState(0);
+  const { listData, loading, regTotal } = useListDatas(`/compra?offset=${offset}&limit=6`, offset);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccept, setIsAccept] = useState(false);
   const [shoppingId, setShoppingId] = useState(null);
@@ -60,9 +62,13 @@ export const ListShoppings = () => {
       }
     };
 
+    
     deleteShopping();
   }, [isAccept, shoppingId]);
-
+  
+  const handleOffsetChange = (numeroPag) => {
+    setOffset(numeroPag);
+  }
 
   const handleClickCreate = ()=>{
     navigate('/admin/shopping/create');
@@ -78,10 +84,14 @@ export const ListShoppings = () => {
         {loading ? (
           <p>Cargando...</p>
         ) : (
-        <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
+        <>
+          <ListUserRows head={head} body={listData.compras} getId={handleClickOption}/>
+          <Pagination  offset= {offset} regTotal ={ regTotal } onOffsetChange={handleOffsetChange}/>
+        </>
         )}
         {isOpen && <MyModal Text={textBorrar} estados={closeModal} />}
       </div>
+
     </div>
   );
 }
