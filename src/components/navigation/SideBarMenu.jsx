@@ -53,7 +53,22 @@ export const SideBarMenu = ({ redirecTo = "admin" }) => {
 
   const handleOk = () => {
     // logout();
-    navigate("/");
+    const token = localStorage.getItem('x-token');
+    console.log("token", token);
+
+    api.post("/auth/logout", null, {
+      headers: {
+        "x-token": token
+      }
+    })
+    .then((res) => {
+      console.log("Respuesta correcta", res);
+      navigate("/login");
+    })
+    .catch((err) => {
+      console.log("Error con la peticion", err);
+      // navigate("/login");
+    })
   };
 
   const switchOptions = (rol, selected) => {

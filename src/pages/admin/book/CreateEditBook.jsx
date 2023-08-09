@@ -55,21 +55,21 @@ export default function CreateEditBook() {
         });
     } else {
       //crear
-      const formData = new FormData();
-      for (let key in data) {
-        formData.append(key, data[key]);
-      }
+      // const formData = new FormData();
+      // for (let key in data) {
+      //   formData.append(key, data[key]);
+      // }
 
-      for (const entry of formData.entries()) {
-        console.log(entry[0] + ": " + entry[1]);
-      }
+      // for (const entry of formData.entries()) {
+      //   console.log(entry[0] + ": " + entry[1]);
+      // }
       
 
-      const camposArray = [...formData.entries()];
-      const longitud = camposArray.length;
-      console.log("longitud", longitud);
+      // const camposArray = [...formData.entries()];
+      // const longitud = camposArray.length;
+      // console.log("longitud", longitud);
       api
-        .post("/libro", formData,{
+        .post("/libro", data,{
           headers: {
             "x-token": token,
           }
