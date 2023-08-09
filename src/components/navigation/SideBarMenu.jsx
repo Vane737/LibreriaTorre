@@ -3,7 +3,7 @@
 // } from "react-icons/bi";
 
 import { useLocation, useNavigate, Outlet } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { LogoutModal } from "../utils";
 
 import { SideBarOptions as Admin } from "./SideBarOptions";
@@ -31,7 +31,6 @@ export const SideBarMenu = ({ redirecTo = "admin" }) => {
             "x-token": token,
           },
         }).then((response) => {
-            console.log(response.data.usuario);
             setUser(response.data.usuario);
         });
       } catch (error) {

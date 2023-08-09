@@ -1,4 +1,3 @@
-import { useForm } from "react-hook-form";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import api from "../../../API/axios";
 import { useEffect, useState } from "react";
@@ -55,19 +54,6 @@ export default function CreateEditBook() {
         });
     } else {
       //crear
-      // const formData = new FormData();
-      // for (let key in data) {
-      //   formData.append(key, data[key]);
-      // }
-
-      // for (const entry of formData.entries()) {
-      //   console.log(entry[0] + ": " + entry[1]);
-      // }
-      
-
-      // const camposArray = [...formData.entries()];
-      // const longitud = camposArray.length;
-      // console.log("longitud", longitud);
       api
         .post("/libro", data,{
           headers: {
@@ -91,9 +77,16 @@ export default function CreateEditBook() {
   }
 
   const handleChangeImage = (e) => {
-    setImage(e.target.files[0]);
-  };
+    const reader = new FileReader()
 
+    reader.readAsDataURL(e.target.files[0])
+
+    reader.onload = () => {
+      // console.log('called: ', reader.result);
+      setImage(reader.result);
+    }
+  };
+  
   return (
     <div className="container mx-auto w-3/6">
       <h1 className="text-2xl font-bold text-center mb-4 w-full pt-5">
@@ -130,13 +123,14 @@ export default function CreateEditBook() {
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
-        {/* <div className="mb-4">
-          <label htmlFor="direccion" className="block mb-2">
+        <div className="mb-4">
+          <label htmlFor="categoria" className="block mb-2">
             CATEGORIA
           </label>
           <select
+            id="categoria"
             className="border border-gray-300 px-3 py-2 rounded-md w-full"
-            {...register("categoriaId")}
+            onChange={(e) => setCategoriaId(e.target.value)}
           >
             {categorias.map((categoria, i) => {
               return (
@@ -146,16 +140,6 @@ export default function CreateEditBook() {
               );
             })}
           </select>
-        </div> */}
-        <div className="mb-4">
-          <label htmlFor="fecha_publicacion" className="block mb-2">
-            CATEGORIA
-          </label>
-          <input
-            type="text"
-            onChange={(e) => setCategoriaId(e.target.value)}
-            className="border border-gray-300 px-3 py-2 w-full rounded-md"
-          />
         </div>
         <div className="mb-4">
           <label htmlFor="fecha_publicacion" className="block mb-2">
@@ -188,7 +172,6 @@ export default function CreateEditBook() {
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
         </div>
-        
         <div className="mt-10">
           <button
             type="submit"
