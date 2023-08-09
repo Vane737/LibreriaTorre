@@ -21,7 +21,7 @@ export const SideBarMenu = ({ redirecTo = "admin" }) => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
       try {
@@ -67,7 +67,7 @@ export const SideBarMenu = ({ redirecTo = "admin" }) => {
     })
     .catch((err) => {
       console.log("Error con la peticion", err);
-      // navigate("/login");
+      navigate("/login");
     })
   };
 
@@ -101,7 +101,7 @@ export const SideBarMenu = ({ redirecTo = "admin" }) => {
           </div>
 
           <div className="p-4 pt-0 mb-3">
-            <p className="text-black mb-2 px-2">{`user.nombre`}</p>
+            <p className="text-black mb-2 px-2">{user.nombre}</p>
             <button
               onClick={handleLogout}
               className="flex text-xp py-2 bg-white px-4 rounded hover:bg-custom-celeste w-full"
