@@ -12,7 +12,8 @@ export default function CreateEditProdiver() {
   const {
     register,
     handleSubmit,
-    reset
+    reset,
+    formState: { errors },
   } = useForm();
   
   //handlers
@@ -80,9 +81,10 @@ export default function CreateEditProdiver() {
           </label>
           <input
             type="text"
-            {...register("nombre")}
+            {...register("nombre", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.nombre?.type === "required" && <p className="text-red-600">El campo nombre es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="email" className="block mb-2">
@@ -90,9 +92,10 @@ export default function CreateEditProdiver() {
           </label>
           <input
             type="email"
-            {...register("correo")}
+            {...register("correo", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.correo?.type === "required" && <p className="text-red-600">El campo email es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="direccion" className="block mb-2">
@@ -100,9 +103,10 @@ export default function CreateEditProdiver() {
           </label>
           <input
             type="text"
-            {...register("direccion")}
+            {...register("direccion", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.direccion?.type === "required" && <p className="text-red-600">El campo dirección es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="telefono" className="block mb-2">
@@ -110,9 +114,10 @@ export default function CreateEditProdiver() {
           </label>
           <input
             type="text"
-            {...register("telefono")}
+            {...register("telefono", {required: true})}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.telefono?.type === "required" && <p className="text-red-600">El campo teléfono es obligatorio*</p>}
         </div>
         <div className="mt-10">
           <button

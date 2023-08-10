@@ -33,9 +33,9 @@ export const ListBooksProvider = () => {
       case 'borrar':
         return handleDeleteBook(id);
       case 'vista':
-        return navigate(`/admin/book/read/${id}`)
+        return navigate(`/provider/book/read/${id}`)
       case 'editar':
-        return navigate(`/admin/book/edit/${id}`)
+        return navigate(`/provider/book/edit/${id}`)
       default:
         break;
     }
@@ -69,17 +69,10 @@ export const ListBooksProvider = () => {
     setOffset(numeroPag);
   }
 
-  const handleClickCreate = ()=>{
-    navigate('/admin/book/create');
-  }
   return (
     <section className='w-full p-5'>
       <div className='mt-5 p-5 w-full h-screen'>
-        <div className='flex justify-between pr-4 py-3'>
-            <h1 className="text-2xl font-bold">Libros</h1>
-            <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
-            onClick={handleClickCreate}>Añadir Nuevo Libro</button>
-        </div>
+        <h1 className="text-2xl font-bold p-5">Libros</h1>
         <hr/>
         {
           loading 
