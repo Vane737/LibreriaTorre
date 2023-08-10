@@ -14,7 +14,8 @@ export default function CreateUser(){
   const {
     register,
     handleSubmit,
-    reset
+    reset,
+    formState: { errors },
   } = useForm();
 
   useEffect(() => {
@@ -93,9 +94,10 @@ export default function CreateUser(){
           </label>
           <input
             type="text"
-            {...register("nombre")}
+            {...register("nombre", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.nombre?.type === "required" && <p className="text-red-600">El campo nombre es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="correo" className="block mb-2">
@@ -103,9 +105,10 @@ export default function CreateUser(){
           </label>
           <input
             type="email"
-            {...register("correo")}
+            {...register("correo", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.nombre?.type === "required" && <p className="text-red-600">El campo email es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block mb-2">
@@ -113,9 +116,10 @@ export default function CreateUser(){
           </label>
           <input
             type="password"
-            {...register("password")}
+            {...register("password", { required: true })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.nombre?.type === "required" && <p className="text-red-600">El campo contraseña es obligatorio*</p>}
         </div>
         <div className="mb-4">
           <label htmlFor="categoria" className="block mb-2">
@@ -133,9 +137,10 @@ export default function CreateUser(){
             </label>
             <input
               type="text"
-              {...register("telefono")}
+              {...register("telefono", { required: true })}
               className="border border-gray-300 px-3 py-2 rounded-md w-full"
             />
+            {errors?.nombre?.type === "required" && <p className="text-red-600">El campo telefono es obligatorio*</p>}
           </div>
           <div className="mb-4 w-full">
             <label htmlFor="direccion" className="block mb-2">

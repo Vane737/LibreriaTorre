@@ -1,8 +1,8 @@
 
 export const StarPage = () => {
   return (
-    <div className="text-center font-bold">
-      <h1>BIENVENIDO</h1>
+    <div className="text-center mx-auto">
+      <img src="/src/assets/img/dashboard.png" alt="" className="h-94"/>
     </div>
   )
 }
