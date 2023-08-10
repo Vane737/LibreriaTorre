@@ -97,15 +97,8 @@ export const ListProviders = () => {
   return (
     <div className="w-full p-5">
       <div className="mt-5 p-5 w-full h-screen">
-        <h1 className="text-2xl font-bold">Proveedores</h1>
         <div className='flex justify-between pr-4 py-3'>
-          {/* <input
-                type="text"
-                name="titulo"
-                className="rounded-md w-1\/2 border-2 border-solid border-black font-normal text-lg pl-2"
-                placeholder="Buscar proveedor"
-                onChange={handleChangeSearch}
-              /> */}
+          <h1 className="text-2xl font-bold">Proveedores</h1>
           <button className='bg-custom-green rounded-md p-1 font-semibold pr-4 pl-4 text-white'
           onClick={handleClickCreate}>Añadir Nuevo</button>
         </div>
