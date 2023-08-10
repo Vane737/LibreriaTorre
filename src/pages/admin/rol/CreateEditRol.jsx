@@ -54,7 +54,7 @@ export default function CreateEditRol() {
       <h1 className="text-2xl font-bold text-center mb-4 w-full pt-5">
         {id ? "EDITAR ROL" : "REGISTRAR ROL"}
       </h1>
-      <form onSubmit={handleSubmit(handleProviderSubmit)}>
+      <form onSubmit={handleSubmit(handleProviderSubmit)} noValidate>
         <div className="mb-4">
           <label htmlFor="nombre" className="block mb-2 w-full">
             Nombre

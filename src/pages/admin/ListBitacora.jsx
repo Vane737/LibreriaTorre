@@ -12,7 +12,6 @@ export const ListBitacora = () => {
   );
 
   const head = ["Id", "Actividad", "Fecha", "Hora", "Usuario_ID"];
-  console.log("listData", listData.bitacoras);
 
   const handleOffsetChange = (numeroPag) => {
     setOffset(numeroPag);
