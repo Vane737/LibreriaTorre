@@ -11,6 +11,7 @@ export default function CreateEditRol() {
   const {
     register,
     handleSubmit,
+    formState: { errors },
   } = useForm();
   
   //handlers
@@ -60,9 +61,10 @@ export default function CreateEditRol() {
           </label>
           <input
             type="text"
-            {...register("nombre")}
+            {...register("nombre", { required: true, maxLength: 20 })}
             className="border border-gray-300 px-3 py-2 w-full rounded-md"
           />
+          {errors?.nombre?.type === "required" && <p className="text-red-600">Este campo es obligatorio*</p>}
         </div>
         <div className="mt-10">
           <button
