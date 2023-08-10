@@ -48,6 +48,7 @@ import { ListBooksClient } from './pages/uclient/ListBookss'
 import { ReadBookEmployee } from './pages/uemployee/book/ReadBook'
 import { ListBooksEmployee } from './pages/uemployee/ListBooks'
 import { ListBitacora } from './pages/admin/ListBitacora'
+import { ReadBookProvider } from './pages/uprovider/book/ReadBookProvider'
 
 
 function App() {
@@ -326,6 +327,15 @@ function App() {
             {
               path: "books",
               element: <ListBooksProvider/>
+            },
+            {
+              path: 'book',
+              children: [
+                {
+                  path: 'read/:id',
+                  element: <ReadBookProvider/>
+                },
+              ]
             },
           ]
         },
